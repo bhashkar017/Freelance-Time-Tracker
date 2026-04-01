@@ -82,7 +82,7 @@ const TimeTracker = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container" style={{ paddingTop: '80px', minHeight: '80vh' }}>
             <h2>Time Tracker</h2>
             <div className="card" style={{ marginBottom: '30px' }}>
                 <h3>Log Hours</h3>

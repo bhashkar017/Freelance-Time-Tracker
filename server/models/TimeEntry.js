@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const TimeEntrySchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     project: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project',
@@ -17,8 +22,8 @@ const TimeEntrySchema = new mongoose.Schema({
     endTime: {
         type: Date
     },
-    duration: { // In minutes or seconds, can be calculated
-        type: Number,
+    duration: {
+        type: Number, // in seconds
         default: 0
     },
     date: {

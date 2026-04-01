@@ -1,55 +1,73 @@
 const Client = require('../models/Client');
+const asyncHandler = require('../utils/asyncHandler');
 
-exports.getClients = async (req, res) => {
-    try {
-        const clients = await Client.find().sort({ createdAt: -1 });
-        res.json(clients);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
+// @desc    Get all clients for logged in user
+// @route   GET /api/clients
+// @access  Private
+exports.getClients = asyncHandler(async (req, res) => {
+    const clients = await Client.find({ user: req.user.id }).sort({ createdAt: -1 });
+    res.json(clients);
+});
 
-exports.createClient = async (req, res) => {
+// @desc    Create a client
+// @route   POST /api/clients
+// @access  Private
+exports.createClient = asyncHandler(async (req, res) => {
+    const { name, email, address, defaultRate } = req.body;
+
     const client = new Client({
-        name: req.body.name,
-        email: req.body.email,
-        address: req.body.address,
-        defaultRate: req.body.defaultRate
+        user: req.user.id,
+        name,
+        email,
+        address,
+        defaultRate
     });
 
-    try {
-        const newClient = await client.save();
-        res.status(201).json(newClient);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+    const createdClient = await client.save();
+    res.status(201).json(createdClient);
+});
+
+// @desc    Update client
+// @route   PUT /api/clients/:id
+// @access  Private
+exports.updateClient = asyncHandler(async (req, res) => {
+    const client = await Client.findById(req.params.id);
+
+    if (!client) {
+        res.status(404);
+        throw new Error('Client not found');
     }
-};
 
-exports.updateClient = async (req, res) => {
-    try {
-        const client = await Client.findById(req.params.id);
-        if (!client) return res.status(404).json({ message: 'Client not found' });
-
-        if (req.body.name) client.name = req.body.name;
-        if (req.body.email) client.email = req.body.email;
-        if (req.body.address) client.address = req.body.address;
-        if (req.body.defaultRate) client.defaultRate = req.body.defaultRate;
-
-        const updatedClient = await client.save();
-        res.json(updatedClient);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    if (client.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
     }
-};
 
-exports.deleteClient = async (req, res) => {
-    try {
-        const client = await Client.findById(req.params.id);
-        if (!client) return res.status(404).json({ message: 'Client not found' });
+    client.name = req.body.name || client.name;
+    client.email = req.body.email || client.email;
+    client.address = req.body.address || client.address;
+    client.defaultRate = req.body.defaultRate || client.defaultRate;
 
-        await client.deleteOne();
-        res.json({ message: 'Client deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    const updatedClient = await client.save();
+    res.json(updatedClient);
+});
+
+// @desc    Delete client
+// @route   DELETE /api/clients/:id
+// @access  Private
+exports.deleteClient = asyncHandler(async (req, res) => {
+    const client = await Client.findById(req.params.id);
+
+    if (!client) {
+        res.status(404);
+        throw new Error('Client not found');
     }
-};
+
+    if (client.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
+    }
+
+    await client.deleteOne();
+    res.json({ message: 'Client deleted' });
+});

@@ -1,55 +1,77 @@
 const Project = require('../models/Project');
+const asyncHandler = require('../utils/asyncHandler');
 
-exports.getProjects = async (req, res) => {
-    try {
-        const projects = await Project.find().populate('client').sort({ createdAt: -1 });
-        res.json(projects);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-};
+// @desc    Get all projects for logged in user
+// @route   GET /api/projects
+// @access  Private
+exports.getProjects = asyncHandler(async (req, res) => {
+    const projects = await Project.find({ user: req.user.id })
+        .populate('client', 'name email')
+        .sort({ createdAt: -1 });
+    res.json(projects);
+});
 
-exports.createProject = async (req, res) => {
+// @desc    Create a project
+// @route   POST /api/projects
+// @access  Private
+exports.createProject = asyncHandler(async (req, res) => {
+    const { name, client, hourlyRate, currency, status } = req.body;
+
     const project = new Project({
-        name: req.body.name,
-        client: req.body.client,
-        hourlyRate: req.body.hourlyRate,
-        status: req.body.status
+        user: req.user.id,
+        name,
+        client,
+        hourlyRate,
+        currency,
+        status
     });
 
-    try {
-        const newProject = await project.save();
-        res.status(201).json(newProject);
-    } catch (err) {
-        res.status(400).json({ message: err.message });
+    const createdProject = await project.save();
+    res.status(201).json(createdProject);
+});
+
+// @desc    Update project
+// @route   PUT /api/projects/:id
+// @access  Private
+exports.updateProject = asyncHandler(async (req, res) => {
+    const project = await Project.findById(req.params.id);
+
+    if (!project) {
+        res.status(404);
+        throw new Error('Project not found');
     }
-};
 
-exports.updateProject = async (req, res) => {
-    try {
-        const project = await Project.findById(req.params.id);
-        if (!project) return res.status(404).json({ message: 'Project not found' });
-
-        if (req.body.name) project.name = req.body.name;
-        if (req.body.client) project.client = req.body.client;
-        if (req.body.hourlyRate) project.hourlyRate = req.body.hourlyRate;
-        if (req.body.status) project.status = req.body.status;
-
-        const updatedProject = await project.save();
-        res.json(updatedProject);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    if (project.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
     }
-};
 
-exports.deleteProject = async (req, res) => {
-    try {
-        const project = await Project.findById(req.params.id);
-        if (!project) return res.status(404).json({ message: 'Project not found' });
+    project.name = req.body.name || project.name;
+    project.client = req.body.client || project.client;
+    project.hourlyRate = req.body.hourlyRate || project.hourlyRate;
+    project.currency = req.body.currency || project.currency;
+    project.status = req.body.status || project.status;
 
-        await project.deleteOne();
-        res.json({ message: 'Project deleted' });
-    } catch (err) {
-        res.status(500).json({ message: err.message });
+    const updatedProject = await project.save();
+    res.json(updatedProject);
+});
+
+// @desc    Delete project
+// @route   DELETE /api/projects/:id
+// @access  Private
+exports.deleteProject = asyncHandler(async (req, res) => {
+    const project = await Project.findById(req.params.id);
+
+    if (!project) {
+        res.status(404);
+        throw new Error('Project not found');
     }
-};
+
+    if (project.user.toString() !== req.user.id) {
+        res.status(401);
+        throw new Error('User not authorized');
+    }
+
+    await project.deleteOne();
+    res.json({ message: 'Project deleted' });
+});

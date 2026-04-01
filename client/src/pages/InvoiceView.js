@@ -51,7 +51,7 @@ const InvoiceView = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container" style={{ paddingTop: '80px', minHeight: '80vh' }}>
             <h2>Invoices</h2>
             <div className="card no-print">
                 <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>

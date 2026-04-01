@@ -29,7 +29,7 @@ const ClientList = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container" style={{ paddingTop: '80px', minHeight: '80vh' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2>Clients</h2>
                 <Link to="/clients/add" className="btn">Add Client</Link>

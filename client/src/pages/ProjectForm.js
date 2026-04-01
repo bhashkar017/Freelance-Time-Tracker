@@ -36,7 +36,7 @@ const ProjectForm = () => {
     };
 
     return (
-        <div className="container" style={{ maxWidth: '600px' }}>
+        <div className="container" style={{ maxWidth: '600px', paddingTop: '80px', minHeight: '80vh' }}>
             <div className="card">
                 <h2>Add Project</h2>
                 <form onSubmit={onSubmit}>

@@ -1,73 +1,97 @@
-# Freelance Time Tracker Project
+# Freelance Time Tracker (MERN Stack)
 
-This project is a full-stack MERN application (MongoDB, Express, React, Node.js) for tracking freelance time and projects.
-
-## Project Structure
-
-- **client/**: The React frontend application.
-- **server/**: The Express backend application.
-
-## Prerequisites
-
-Before running this project, ensure you have the following installed:
-
-1.  **Node.js**: [Download and Install Node.js](https://nodejs.org/)
-2.  **MongoDB**: Ensure MongoDB is installed and running locally on your machine.
-    - Default URI: `mongodb://127.0.0.1:27017/freelance-time-tracker`
-    - You can change this in `server/.env` if needed.
-
-## Setup Instructions
-
-1.  **Unzip the project** folder.
-2.  Open a terminal/command prompt in the project root folder.
-
-### 1. Install Server Dependencies
-
-Navigate to the server directory and install dependencies:
-
-```bash
-cd server
-npm install
-```
-
-### 2. Install Client Dependencies
-
-Navigate to the client directory and install dependencies:
-
-```bash
-cd ../client
-npm install
-```
-
-(Or commonly: `npm install` inside both `server` and `client` folders separately).
-
-## How to Run
-
-You can run the full project (client and server) from the `server` directory using a single command.
-
-1.  Open your terminal in the `server` directory.
-2.  Run the development command:
-
-```bash
-npm run dev
-```
-
-This command will start both the:
--   **Backend Server** on [http://localhost:5000](http://localhost:5000)
--   **Frontend Client** on [http://localhost:3000](http://localhost:3000)
-
-Your browser should automatically open the application at `http://localhost:3000`.
-
-## Configuration
-
-The backend configuration is located in `server/.env`.
--   `PORT`: The port the server runs on (default 5000).
--   `MONGO_URI`: The connection string for your MongoDB database.
-
-## Troubleshooting
-
--   **Database Connection Error**: Ensure your local MongoDB service is running. Use MongoDB Compass to verify connection to `mongodb://127.0.0.1:27017`.
--   **Port Conflicts**: If port 3000 or 5000 is in use, you may need to kill the process using that port or change the port in `.env` (for server) or package.json (for client).
+> **CV-Ready Description**: Developed a full-stack web application to help freelancers track project-wise working hours and earnings. Implemented JWT-based authentication, role-based access control, and secure REST APIs using Node.js and Express. Designed MongoDB schemas with user-project relationships and built real-time time tracking with automated billing calculations. Deployed the application on cloud platforms with MongoDB Atlas integration.
 
 ---
-Generated for delivery.
+
+## 🚀 Features
+
+*   **Secure Authentication**: User registration and login with JWT and bcrypt password hashing.
+*   **Role-Based Data Access**: Each user has their own private dashboard, clients, projects, and time logs.
+*   **Smart Time Tracking**: Real-time "Start/Stop" timer to automatically calculate duration and earnings.
+*   **Project Management**: Manage clients and projects with custom hourly rates and currency support.
+*   **Financial Reports**: Dashboard with total earnings, weekly activity, and project status (Active/Completed).
+*   **Robust Security**: Implemented `Helmet` for secure headers, `express-rate-limit` for DDoS protection, and `Joi` for strict input validation.
+*   **RESTful API**: Clean, documented API with centralized error handling and async middleware.
+
+## 🛠️ Tech Stack
+
+*   **Frontend**: React.js, React Router, Axios (Planned Integration)
+*   **Backend**: Node.js, Express.js
+*   **Database**: MongoDB, Mongoose
+*   **Authentication**: JSON Web Tokens (JWT), Bcrypt.js
+*   **Security**: Helmet, Rate Limiting, CORS, Dotenv
+*   **Validation**: Joi
+*   **Logging**: Morgan
+
+## 📂 Project Structure
+
+```
+server/
+ ├── config/         # Database connection
+ ├── controllers/    # Route logic (Auth, Clients, Projects, Reports)
+ ├── middleware/     # Auth check, Error handling, Validation
+ ├── models/         # Mongoose Schemas (User, Client, Project, TimeEntry)
+ ├── routes/         # API Routes
+ ├── utils/          # Helper functions (Token generation, Async Handler)
+ ├── validations/    # Joi Validation Schemas
+ └── index.js        # App entry point
+```
+
+## 🔌 API Endpoints
+
+### Authentication
+*   `POST /api/users` - Register a new user
+*   `POST /api/users/login` - Login user
+*   `GET /api/users/profile` - Get user profile
+
+### Dashboard & Reports
+*   `GET /api/reports/dashboard` - Get earnings and stats
+*   `GET /api/reports/weekly` - Get weekly activity
+
+### Time Tracking
+*   `POST /api/time-entries/start` - Start timer
+*   `PUT /api/time-entries/stop/:id` - Stop timer
+*   `POST /api/time-entries` - Add manual entry
+
+## 🔧 Setup & Installation
+
+**Prerequisites**: Node.js and MongoDB installed.
+
+1.  **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/freelance-time-tracker.git
+    cd freelance-time-tracker
+    ```
+
+2.  **Install Dependencies**:
+    ```bash
+    cd server
+    npm install
+    cd ../client
+    npm install
+    ```
+
+3.  **Environment Variables**:
+    Create a `.env` file in `server/`:
+    ```env
+    PORT=5000
+    MONGO_URI=your_mongodb_uri
+    JWT_SECRET=your_jwt_secret
+    NODE_ENV=development
+    ```
+
+4.  **Run the App**:
+    ```bash
+    # From server directory
+    npm run dev
+    ```
+
+## 🔮 Future Improvements
+
+*   **PDF Invoicing**: Generate downloadable PDF invoices for clients.
+*   **Payment Gateway**: Integrate Stripe/Razorpay for direct payments.
+*   **Team Mode**: Allow multiple users to collaborate on the same project.
+
+---
+*Built with ❤️ by [Your Name]*

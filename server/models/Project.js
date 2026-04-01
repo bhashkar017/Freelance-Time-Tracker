@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
     name: {
         type: String,
         required: true
@@ -13,6 +18,10 @@ const ProjectSchema = new mongoose.Schema({
     hourlyRate: {
         type: Number,
         required: true
+    },
+    currency: {
+        type: String,
+        default: 'USD'
     },
     status: {
         type: String,

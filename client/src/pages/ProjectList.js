@@ -29,7 +29,7 @@ const ProjectList = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container" style={{ paddingTop: '80px', minHeight: '80vh' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                 <h2>Projects</h2>
                 <Link to="/projects/add" className="btn">Add Project</Link>
