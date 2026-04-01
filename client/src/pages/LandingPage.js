@@ -170,12 +170,12 @@ const LandingPage = () => {
                             
                             <pre className="font-mono text-sm text-slate-300 overflow-x-auto">
                                 <code className="block mb-2"><span className="text-fuchsia-400">const</span> <span className="text-blue-400">router</span> = express.<span className="text-emerald-300">Router</span>();</code>
-                                <code className="block mb-2 opacity-50">// Protected API Routes</code>
+                                <code className="block mb-2 opacity-50">{"// Protected API Routes"}</code>
                                 <code className="block mb-2">router.<span className="text-blue-400">get</span>(<span className="text-amber-300">'/projects'</span>, protect, <span className="text-fuchsia-400">async</span> (req, res) =&gt; {'{'}</code>
                                 <code className="block mb-2 ml-4"><span className="text-fuchsia-400">const</span> projects = <span className="text-fuchsia-400">await</span> Project.<span className="text-blue-400">find</span>({'{'} user: req.user._id {'}'});</code>
                                 <code className="block mb-2 ml-4">res.<span className="text-blue-400">json</span>(projects);</code>
                                 <code className="block mb-2">{'}'});</code>
-                                <code className="block mb-2 mt-4 opacity-50">// Client Side Request</code>
+                                <code className="block mb-2 mt-4 opacity-50">{"// Client Side Request"}</code>
                                 <code className="block mb-2"><span className="text-fuchsia-400">const</span> fetchProjects = <span className="text-fuchsia-400">async</span> () =&gt; {'{'}</code>
                                 <code className="block mb-2 ml-4"><span className="text-fuchsia-400">const</span> {'{'} data {'}'} = <span className="text-fuchsia-400">await</span> api.<span className="text-blue-400">get</span>(<span className="text-amber-300">'/api/projects'</span>);</code>
                                 <code className="block mb-2 ml-4"><span className="text-blue-400">setProjects</span>(data);</code>
