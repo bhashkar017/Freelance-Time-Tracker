@@ -7,113 +7,108 @@ import SecurityIcon from '../assets/security.png';
 
 const LandingPage = () => {
     return (
-        <div style={{ paddingBottom: '50px' }}>
+        <div style={{ paddingBottom: '80px', overflow: 'hidden' }}>
+            {/* Ambient Background Orbs */}
+            <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%)', borderRadius: '50%', zIndex: -1, filter: 'blur(40px)' }}></div>
+            <div style={{ position: 'absolute', top: '20%', left: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, transparent 70%)', borderRadius: '50%', zIndex: -1, filter: 'blur(40px)' }}></div>
+
             {/* Hero Section */}
-            <div style={{
-                minHeight: '90vh',
-                display: 'flex',
-                alignItems: 'center',
-                background: 'linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%)',
-                position: 'relative',
-                overflow: 'hidden',
-                padding: '0 20px'
-            }}>
-                <div className="container" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: '50px' }}>
+            <div style={{ minHeight: '92vh', display: 'flex', alignItems: 'center', position: 'relative', marginTop: '-60px' }}>
+                <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', gap: '60px', paddingTop: '80px' }}>
+                    
                     {/* Text Content */}
-                    <div style={{ flex: 1, zIndex: 2 }}>
+                    <div style={{ zIndex: 2, paddingRight: '20px' }}>
                         <div className="animate-slide-up">
-                            <h1 style={{ fontSize: '4rem', marginBottom: '20px', fontWeight: '800', lineHeight: '1.1' }} className="gradient-text">
-                                Master Your<br />Freelance Time
+                            <h1 style={{ fontSize: '4.5rem', marginBottom: '24px', lineHeight: '1.05' }}>
+                                Master Your <br/>
+                                <span className="gradient-text">Freelance Time</span>
                             </h1>
                         </div>
 
-                        <p className="animate-fade-in" style={{ fontSize: '1.25rem', marginBottom: '30px', color: '#6c757d', fontWeight: '500', lineHeight: '1.6', animationDelay: '0.2s', maxWidth: '500px' }}>
-                            Track project hours, calculate earnings, and generate reports — all in one secure platform designed for modern professionals.
+                        <p className="animate-fade-in" style={{ fontSize: '1.25rem', marginBottom: '40px', color: 'var(--text-muted)', lineHeight: '1.7', animationDelay: '0.2s', maxWidth: '540px' }}>
+                            The ultimate platform to track project hours, calculate earnings, and generate professional reports. Designed for modern freelancers.
                         </p>
 
-                        <div className="animate-fade-in" style={{ display: 'flex', gap: '20px', animationDelay: '0.4s' }}>
-                            <Link to="/register" className="btn-neon">Get Started Free</Link>
-                            <Link to="/login" className="btn-neon btn-purple" style={{ background: 'white', color: '#6610f2', border: '2px solid #6610f2' }}>Login</Link>
+                        <div className="animate-slide-up" style={{ display: 'flex', gap: '20px', animationDelay: '0.4s' }}>
+                            <Link to="/register" className="btn btn-neon" style={{ padding: '16px 36px', fontSize: '1.1rem' }}>
+                                Start For Free
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '8px' }}><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            </Link>
+                            <Link to="/login" className="btn btn-outline" style={{ padding: '16px 36px', fontSize: '1.1rem' }}>
+                                Sign In
+                            </Link>
+                        </div>
+                        
+                        {/* Trust Metrics */}
+                        <div className="animate-fade-in" style={{ marginTop: '50px', display: 'flex', gap: '40px', animationDelay: '0.6s' }}>
+                            <div>
+                                <h3 style={{ fontSize: '2.5rem', color: 'var(--text-main)', margin: '0 0 5px 0' }}>10k+</h3>
+                                <p style={{ color: 'var(--text-muted)', fontSize: '1rem', margin: 0, fontWeight: 500 }}>Active Users</p>
+                            </div>
+                            <div style={{ width: '2px', background: 'var(--border-color)' }}></div>
+                            <div>
+                                <h3 style={{ fontSize: '2.5rem', color: 'var(--text-main)', margin: '0 0 5px 0' }}>99%</h3>
+                                <p style={{ color: 'var(--text-muted)', fontSize: '1rem', margin: 0, fontWeight: 500 }}>Client Satisfaction</p>
+                            </div>
                         </div>
                     </div>
 
-                    {/* AI Generated Hero Image */}
-                    <div style={{ flex: 1, display: 'flex', justifyContent: 'center', zIndex: 2 }} className="animate-slide-up">
-                        <img src={HeroImage} alt="Dashboard Illustration" style={{ maxWidth: '100%', height: 'auto', dropShadow: '0 20px 50px rgba(0,0,0,0.1)' }} />
-                    </div>
-                </div>
-
-                {/* Decorative Background Elements */}
-                <div style={{ position: 'absolute', top: '-10%', right: '-10%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(0,123,255,0.1) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%' }}></div>
-                <div style={{ position: 'absolute', bottom: '-10%', left: '-10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(102,16,242,0.1) 0%, rgba(255,255,255,0) 70%)', borderRadius: '50%' }}></div>
-            </div>
-
-            {/* How It Works Section */}
-            <div className="container" style={{ margin: '80px auto' }}>
-                <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '50px' }}>How It Works</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '40px', textAlign: 'center' }}>
-                    <div className="card animate-slide-up" style={{ animationDelay: '0.2s', padding: '40px 20px' }}>
-                        <div style={{ width: '120px', height: '120px', margin: '0 auto 20px' }}>
-                            <img src={TimeIcon} alt="Time" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                    {/* Dashboard Preview / Image */}
+                    <div className="animate-float" style={{ zIndex: 2, perspective: '1000px' }}>
+                        <div className="glass-panel" style={{ padding: '15px', transform: 'rotateY(-10deg) rotateX(5deg)', boxShadow: '0 30px 60px -10px rgba(0,0,0,0.15)' }}>
+                            <img src={HeroImage} alt="Dashboard Illustration" style={{ width: '100%', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.4)', display: 'block' }} />
                         </div>
-                        <h3>1. Track Time</h3>
-                        <p style={{ color: '#666' }}>One-click smart timer to log your work hours instantly.</p>
-                    </div>
-                    <div className="card animate-slide-up" style={{ animationDelay: '0.4s', padding: '40px 20px' }}>
-                        <div style={{ width: '120px', height: '120px', margin: '0 auto 20px' }}>
-                            <img src={AnalyticsIcon} alt="Analytics" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                        </div>
-                        <h3>2. Analyze Data</h3>
-                        <p style={{ color: '#666' }}>View real-time earnings and project performance graphs.</p>
-                    </div>
-                    <div className="card animate-slide-up" style={{ animationDelay: '0.6s', padding: '40px 20px' }}>
-                        <div style={{ width: '120px', height: '120px', margin: '0 auto 20px' }}>
-                            <img src={SecurityIcon} alt="Security" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                        </div>
-                        <h3>3. Stay Secure</h3>
-                        <p style={{ color: '#666' }}>Your data is encrypted with bank-grade security protocols.</p>
                     </div>
                 </div>
             </div>
 
-            {/* Tech Stack Section */}
-            <div style={{ background: '#f8f9fa', padding: '80px 0' }}>
-                <div className="container">
-                    <h2 style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '50px' }}>Built With Modern Tech</h2>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px' }}>
-                        <span className="card" style={{ padding: '15px 30px', fontWeight: '600', color: '#61dafb' }}>React.js</span>
-                        <span className="card" style={{ padding: '15px 30px', fontWeight: '600', color: '#3c873a' }}>Node.js & Express</span>
-                        <span className="card" style={{ padding: '15px 30px', fontWeight: '600', color: '#47a248' }}>MongoDB</span>
-                        <span className="card" style={{ padding: '15px 30px', fontWeight: '600', color: '#dc3545' }}>JWT Auth</span>
-                        <span className="card" style={{ padding: '15px 30px', fontWeight: '600', color: '#007bff' }}>Cloud Deployed</span>
-                    </div>
+            {/* Features Section */}
+            <div className="container" style={{ marginTop: '100px' }}>
+                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                    <h5 style={{ color: 'var(--primary-color)', fontWeight: '700', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '15px' }}>Workflow</h5>
+                    <h2 style={{ fontSize: '3.5rem' }}>Everything you need to scale</h2>
                 </div>
-            </div>
-
-            {/* Security Section */}
-            <div className="container" style={{ margin: '80px auto' }}>
-                <div className="card" style={{ borderLeft: '5px solid #007bff', display: 'flex', flexDirection: 'column', md: { flexDirection: 'row' }, alignItems: 'center', gap: '30px', padding: '50px' }}>
-                    <div style={{ flex: 1 }}>
-                        <h2 style={{ marginBottom: '20px', color: '#2c3e50' }}>Enterprise-Grade Security</h2>
-                        <ul style={{ listStyle: 'none', padding: 0 }}>
-                            <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>✅ <strong>JWT Authentication</strong> for stateless, secure sessions</li>
-                            <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>✅ <strong>Bcrypt Hashing</strong> to protect user passwords</li>
-                            <li style={{ padding: '10px 0', borderBottom: '1px solid #eee' }}>✅ <strong>Protected APIs</strong> ensuring user data isolation</li>
-                            <li style={{ padding: '10px 0' }}>✅ <strong>HTTPS & Secure Headers</strong> via Helmet</li>
-                        </ul>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
+                    <div className="card glass-panel animate-slide-up" style={{ textAlign: 'center', padding: '50px 30px', animationDelay: '0.2s' }}>
+                        <div style={{ width: '80px', height: '80px', margin: '0 auto 30px', background: 'rgba(79, 70, 229, 0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img src={TimeIcon} alt="Time" style={{ width: '40px', height: '40px' }} />
+                        </div>
+                        <h3 style={{ fontSize: '1.75rem', marginBottom: '15px' }}>Smart Timer</h3>
+                        <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', fontSize: '1.05rem' }}>Log hours instantly with our minimal friction timer. Group by client or specific project.</p>
                     </div>
-                    <div style={{ flex: 1, textAlign: 'center' }}>
-                        <div style={{ fontSize: '5rem' }}>🛡️</div>
+
+                    <div className="card glass-panel animate-slide-up" style={{ textAlign: 'center', padding: '50px 30px', transform: 'translateY(-20px)', animationDelay: '0.4s' }}>
+                        <div style={{ width: '80px', height: '80px', margin: '0 auto 30px', background: 'rgba(217, 70, 239, 0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img src={AnalyticsIcon} alt="Analytics" style={{ width: '40px', height: '40px' }} />
+                        </div>
+                        <h3 style={{ fontSize: '1.75rem', marginBottom: '15px' }}>Deep Analytics</h3>
+                        <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', fontSize: '1.05rem' }}>Visualize your earnings, track billable hours, and identify your most profitable clients.</p>
+                    </div>
+
+                    <div className="card glass-panel animate-slide-up" style={{ textAlign: 'center', padding: '50px 30px', animationDelay: '0.6s' }}>
+                        <div style={{ width: '80px', height: '80px', margin: '0 auto 30px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img src={SecurityIcon} alt="Security" style={{ width: '40px', height: '40px' }} />
+                        </div>
+                        <h3 style={{ fontSize: '1.75rem', marginBottom: '15px' }}>Bank-grade Security</h3>
+                        <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', fontSize: '1.05rem' }}>Your financial data is encrypted and secure. Complete isolation and top-tier privacy.</p>
                     </div>
                 </div>
             </div>
 
             {/* CTA Section */}
-            <div className="container" style={{ textAlign: 'center', marginBottom: '50px' }}>
-                <div className="card animate-slide-up" style={{ padding: '60px', background: 'var(--gradient-primary)', color: 'white' }}>
-                    <h2 style={{ color: 'white', marginBottom: '15px' }}>Ready to optimize your workflow?</h2>
-                    <p style={{ marginBottom: '30px', opacity: 0.9, fontSize: '1.2rem' }}>Join the platform designed for professional freelancers.</p>
-                    <Link to="/register" style={{ background: 'white', color: '#007bff', padding: '15px 40px', borderRadius: '50px', fontWeight: 'bold', fontSize: '1.1rem', boxShadow: '0 4px 15px rgba(0,0,0,0.2)' }}>Create Free Account</Link>
+            <div className="container" style={{ marginTop: '140px', marginBottom: '60px' }}>
+                <div className="glass-panel" style={{ padding: '80px', textAlign: 'center', background: 'var(--gradient-primary)', position: 'relative', overflow: 'hidden' }}>
+                    <div style={{ position: 'relative', zIndex: 2 }}>
+                        <h2 style={{ color: 'white', fontSize: '4rem', marginBottom: '20px' }}>Ready to optimize your workflow?</h2>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.25rem', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px' }}>Join thousands of professionals taking control of their time and income.</p>
+                        <Link to="/register" className="btn" style={{ background: 'white', color: 'var(--primary-color)', padding: '20px 50px', fontSize: '1.3rem', borderRadius: '16px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+                            Create Free Account
+                        </Link>
+                    </div>
+                    {/* Decorative Background Elements */}
+                    <div style={{ position: 'absolute', top: '-50%', left: '-10%', width: '400px', height: '400px', background: 'rgba(255,255,255,0.15)', borderRadius: '50%', filter: 'blur(30px)' }}></div>
+                    <div style={{ position: 'absolute', bottom: '-50%', right: '-10%', width: '300px', height: '300px', background: 'rgba(255,255,255,0.15)', borderRadius: '50%', filter: 'blur(30px)' }}></div>
                 </div>
             </div>
         </div>
