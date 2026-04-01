@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { 
     Clock, BarChart3, Shield, Layout, Server, Database,
     CheckCircle2, ArrowRight, Zap, Target, Lock, Activity,
-    Code2, Sparkles, Map, Terminal, Github
+    Code2, Sparkles, Map, Terminal
 } from 'lucide-react';
 import HeroImage from '../assets/hero.png';
 
@@ -229,7 +229,7 @@ const LandingPage = () => {
                             Get Started
                         </Link>
                         <a href="https://github.com/bhashkar017/Freelance-Time-Tracker" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-all">
-                            <Github className="w-5 h-5" /> View on GitHub
+                            <Terminal className="w-5 h-5" /> View Project Code
                         </a>
                     </div>
                 </div>
