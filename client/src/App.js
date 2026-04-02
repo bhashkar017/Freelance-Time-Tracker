@@ -11,6 +11,7 @@ import About from './pages/About';
 import Developer from './pages/Developer';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
 import Dashboard from './pages/Dashboard';
 import ClientList from './pages/ClientList';
 import ClientForm from './pages/ClientForm';
@@ -25,7 +26,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="App">
+        <div className="App dark bg-dark-bg text-white min-h-screen">
           <Navbar />
           <div style={{ flex: 1 }}>
             <Routes>
@@ -35,6 +36,7 @@ function App() {
               <Route path="/developer" element={<Developer />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
 
               {/* Protected Routes */}
               <Route element={<PrivateRoute />}>

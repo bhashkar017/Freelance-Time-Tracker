@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Float, Sparkles, PerspectiveCamera } from '@react-three/drei';
 import { 
     Clock, BarChart3, Shield, Layout, Server, Database,
     CheckCircle2, ArrowRight, Zap, Target, Lock, Activity,
-    Code2, Sparkles, Map, Terminal
+    Code2, Map, Terminal, Cpu
 } from 'lucide-react';
-import HeroImage from '../assets/hero.png';
 
 const fadeIn = {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: "easeOut" }
+    transition: { duration: 0.8, ease: "easeOut" }
 };
 
 const staggerContainer = {
@@ -22,107 +23,131 @@ const staggerContainer = {
     }
 };
 
+// 3D Object Component
+const FloatingAbstract = () => {
+    return (
+        <Float speed={2} rotationIntensity={1.5} floatIntensity={2}>
+            <mesh scale={1.2}>
+                <torusKnotGeometry args={[1, 0.3, 128, 32]} />
+                <meshStandardMaterial 
+                    color="#4f46e5" 
+                    emissive="#d946ef"
+                    emissiveIntensity={0.5}
+                    roughness={0.2}
+                    metalness={0.8}
+                    wireframe={true}
+                />
+            </mesh>
+        </Float>
+    );
+};
+
 const LandingPage = () => {
     return (
-        <div className="bg-slate-50 text-slate-900 overflow-hidden font-sans pt-16">
+        <div className="bg-dark-bg text-white overflow-hidden font-sans min-h-screen">
             
-            {/* Ambient Backgrounds */}
-            <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-500/10 rounded-full blur-3xl pointer-events-none" />
-            
+            {/* Ambient Animated Background Grid */}
+            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#4f46e511_1px,transparent_1px),linear-gradient(to_bottom,#4f46e511_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
             {/* HERO SECTION */}
-            <section className="relative w-full max-w-7xl mx-auto px-6 pt-24 pb-32">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <section className="relative w-full min-h-screen flex items-center pt-24 pb-32 z-10">
+                <div className="max-w-7xl mx-auto px-6 w-full grid lg:grid-cols-2 gap-12 items-center">
+                    
+                    {/* Left Column: Copy & Actions */}
                     <motion.div 
                         initial="initial" animate="animate" variants={staggerContainer}
-                        className="relative z-10"
+                        className="relative z-20"
                     >
-                        <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 border border-indigo-100 backdrop-blur-md mb-8 shadow-sm">
-                            <Sparkles className="w-4 h-4 text-indigo-500" />
-                            <span className="text-sm font-semibold text-indigo-700 uppercase tracking-wider">Freelance Operating System</span>
+                        <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-surface border border-dark-border mb-8 shadow-glow-primary">
+                            <span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse"></span>
+                            <span className="text-sm font-semibold text-slate-300 tracking-wider">MERN 3.0 ARCHITECTURE</span>
                         </motion.div>
                         
-                        <motion.h1 variants={fadeIn} className="text-5xl lg:text-7xl font-display font-bold leading-[1.1] mb-6 tracking-tight">
-                            Track Time. <br/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-fuchsia-500">
-                                Scale Revenue.
+                        <motion.h1 variants={fadeIn} className="text-6xl lg:text-8xl font-display font-black leading-[1.05] tracking-tight mb-8">
+                            Master your <br/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-purple-400">
+                                freelance time.
                             </span>
                         </motion.h1>
                         
-                        <motion.p variants={fadeIn} className="text-lg text-slate-600 mb-10 leading-relaxed max-w-lg">
-                            The enterprise-grade platform for modern freelancers. Seamlessly track hours, instantly calculate earnings, and generate professional reports with bank-level security.
+                        <motion.p variants={fadeIn} className="text-xl text-slate-400 mb-10 leading-relaxed max-w-xl font-light">
+                            The enterprise-grade platform for modern developers. Track hours effortlessly, generate dynamic reports, and scale your revenue with bank-level security.
                         </motion.p>
                         
-                        <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4">
-                            <Link to="/register" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-fuchsia-600 text-white rounded-2xl font-semibold text-lg hover:shadow-glow hover:-translate-y-1 transition-all duration-300">
+                        <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-5">
+                            <Link to="/register" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-glow-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.5)] hover:-translate-y-1 transition-all duration-300">
                                 Start Building Free
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link to="/login" className="inline-flex items-center justify-center px-8 py-4 bg-white text-slate-700 border border-slate-200 rounded-2xl font-semibold text-lg hover:border-indigo-200 hover:bg-slate-50 transition-all duration-300">
+                            <Link to="/login" className="inline-flex items-center justify-center px-8 py-4 bg-dark-surface/50 backdrop-blur-md text-white border border-dark-border rounded-xl font-bold text-lg hover:border-slate-500 transition-all duration-300">
                                 Sign In
                             </Link>
                         </motion.div>
                         
-                        <motion.div variants={fadeIn} className="mt-12 flex items-center gap-6 text-sm text-slate-500 font-medium">
+                        <motion.div variants={fadeIn} className="mt-12 flex flex-wrap items-center gap-8 text-sm text-slate-400 font-medium">
                             <div className="flex items-center gap-2">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-500" /> No credit card required
+                                <CheckCircle2 className="w-5 h-5 text-emerald-400" /> No credit card required
                             </div>
                             <div className="flex items-center gap-2">
-                                <CheckCircle2 className="w-5 h-5 text-emerald-500" /> Open Source MERN
+                                <CheckCircle2 className="w-5 h-5 text-emerald-400" /> Open Source Ready
                             </div>
                         </motion.div>
                     </motion.div>
 
+                    {/* Right Column: 3D Canvas */}
                     <motion.div 
-                        initial={{ opacity: 0, scale: 0.95, rotateY: 10 }}
-                        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                        transition={{ duration: 1, ease: "easeOut" }}
-                        className="relative z-10 perspective-1000"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.5, delay: 0.5 }}
+                        className="relative z-10 h-[500px] lg:h-[700px] w-full"
                     >
-                        <div className="relative rounded-3xl bg-white/40 p-4 border border-white/60 backdrop-blur-xl shadow-glass transform hover:scale-[1.02] transition-transform duration-500">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-fuchsia-500 rounded-3xl opacity-20 blur-xl"></div>
-                            {HeroImage ? (
-                                <img src={HeroImage} alt="Dashboard Preview" className="relative rounded-2xl border border-white shadow-sm w-full object-cover" />
-                            ) : (
-                                <div className="relative rounded-2xl bg-white h-[400px] border border-slate-100 flex items-center justify-center">
-                                    <BarChart3 className="w-16 h-16 text-slate-300" />
-                                </div>
-                            )}
-                        </div>
+                        <div className="absolute inset-0 bg-primary/20 blur-[100px] rounded-full pointer-events-none"></div>
+                        <Canvas className="w-full h-full">
+                            <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
+                            <ambientLight intensity={0.5} />
+                            <directionalLight position={[10, 10, 5]} intensity={1} color="#f8fafc" />
+                            <pointLight position={[-10, -10, -5]} intensity={2} color="#d946ef" />
+                            
+                            <Suspense fallback={null}>
+                                <FloatingAbstract />
+                                <Sparkles count={200} scale={10} size={2} speed={0.4} color="#ec4899" opacity={0.5} />
+                            </Suspense>
+                            <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+                        </Canvas>
                     </motion.div>
                 </div>
             </section>
 
-            {/* FEATURES GRID */}
-            <section className="py-24 bg-white/50 backdrop-blur-sm border-y border-slate-100 relative">
+            {/* PLATFORM FEATURES */}
+            <section className="py-32 relative z-10 border-t border-dark-border bg-dark-surface/30">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-sm font-bold text-indigo-600 tracking-widest uppercase mb-3">Core Platform</h2>
-                        <h3 className="text-4xl font-display font-bold text-slate-900">Engineered for performance</h3>
+                    <div className="text-center mb-20">
+                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-4">Core Platform</h2>
+                        <h3 className="text-4xl md:text-5xl font-display font-bold text-white">Engineered for performance</h3>
                     </div>
 
-                    <div className="grid md:grid-cols-3 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            { icon: Clock, color: 'text-blue-500', bg: 'bg-blue-50', title: 'Smart Time Tracking', desc: 'Frictionless stopwatch interface. Assign hours directly to specific clients and projects with zero lag.' },
-                            { icon: BarChart3, color: 'text-fuchsia-500', bg: 'bg-fuchsia-50', title: 'Earnings Analytics', desc: 'Real-time calculation of your billable rates mapped against tracked time. Beautiful charts to visualize workflow.' },
-                            { icon: Shield, color: 'text-emerald-500', bg: 'bg-emerald-50', title: 'Data Security', desc: 'JWT sessions and Bcrypt hashed credentials ensure your business data is absolutely immune to unauthorized access.' },
-                            { icon: Layout, color: 'text-amber-500', bg: 'bg-amber-50', title: 'Client Management', desc: 'Maintain an organized database of clients and associated projects within a unified, interactive dashboard.' },
-                            { icon: Zap, color: 'text-indigo-500', bg: 'bg-indigo-50', title: 'Lightning Fast', desc: 'Built on a modern React SPA architecture. Page transitions and state updates happen in milliseconds.' },
-                            { icon: Target, color: 'text-rose-500', bg: 'bg-rose-50', title: 'Goal Tracking', desc: 'Set and monitor your monthly freelance revenue targets against your actual tracked billables.' }
+                            { icon: Clock, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', title: 'Smart Time Tracking', desc: 'Frictionless stopwatch interface. Assign hours directly to specific clients and projects.' },
+                            { icon: BarChart3, color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/10', border: 'border-fuchsia-500/20', title: 'Earnings Analytics', desc: 'Real-time calculation of your billable rates mapped against tracked time. Beautiful charts.' },
+                            { icon: Shield, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', title: 'Data Security', desc: 'JWT sessions and Bcrypt hashed credentials ensure your business data is absolutely secure.' },
+                            { icon: Layout, color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', title: 'Client Management', desc: 'Maintain an organized database of clients and associated projects within a unified dashboard.' },
+                            { icon: Zap, color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/20', title: 'Lightning Fast', desc: 'Built on a modern React 19 architecture. Page transitions and updates happen in milliseconds.' },
+                            { icon: Target, color: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/20', title: 'Goal Tracking', desc: 'Set and monitor your monthly freelance revenue targets against your actual tracked billables.' }
                         ].map((feature, i) => (
                             <motion.div 
                                 key={i}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="bg-white p-8 rounded-3xl border border-slate-100 hover:border-indigo-100 shadow-sm hover:shadow-md transition-all group"
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
+                                className={`bg-dark-bg/60 backdrop-blur-sm p-8 rounded-3xl border ${feature.border} hover:bg-dark-surface transition-all group`}
                             >
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 \${feature.bg} \${feature.color} group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${feature.bg} ${feature.color} group-hover:scale-110 transition-transform duration-300`}>
                                     <feature.icon className="w-7 h-7" />
                                 </div>
-                                <h4 className="text-xl font-bold mb-3 font-display">{feature.title}</h4>
-                                <p className="text-slate-500 leading-relaxed">{feature.desc}</p>
+                                <h4 className="text-xl font-bold mb-3 font-display text-slate-100">{feature.title}</h4>
+                                <p className="text-slate-400 leading-relaxed text-sm">{feature.desc}</p>
                             </motion.div>
                         ))}
                     </div>
@@ -130,87 +155,92 @@ const LandingPage = () => {
             </section>
 
             {/* MERN ARCHITECTURE / TECH STACK */}
-            <section className="py-24 relative overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <section className="py-32 relative overflow-hidden bg-dark-bg z-10">
+                <div className="absolute -left-40 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>
+                <div className="max-w-7xl mx-auto px-6 relative">
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div>
-                            <h2 className="text-sm font-bold text-fuchsia-600 tracking-widest uppercase mb-3">Architecture</h2>
-                            <h3 className="text-4xl font-display font-bold text-slate-900 mb-6">Modern Full-Stack Engineering</h3>
-                            <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+                            <h2 className="text-sm font-bold text-secondary tracking-widest uppercase mb-4 flex items-center gap-2"><Cpu size={16}/> Architecture</h2>
+                            <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Modern Full-Stack Engineering</h3>
+                            <p className="text-lg text-slate-400 mb-10 leading-relaxed">
                                 Built from the ground up using the industry-standard MERN stack. Our architecture separates concerns efficiently, providing a robust backend API and a highly reactive frontend UI.
                             </p>
                             
-                            <ul className="space-y-6">
+                            <ul className="space-y-8">
                                 {[
-                                    { icon: Code2, title: 'React 19 Frontend', desc: 'Functional components, Context API state management, and Framer Motion animations.' },
-                                    { icon: Server, title: 'Node.js & Express REST API', desc: 'Modular route controllers, middleware error handling, and scalable request architecture.' },
-                                    { icon: Database, title: 'MongoDB Atlas', desc: 'NoSQL document storage securely hosted in the cloud with Mongoose ORM models.' },
-                                    { icon: Lock, title: 'Authentication Pipeline', desc: 'Stateless JSON Web Tokens standardizing cross-origin request verification.' }
+                                    { icon: Code2, title: 'React Frontend', desc: 'Functional components, Context API, and global Tailwind dark mode.' },
+                                    { icon: Server, title: 'Node.js & Express REST API', desc: 'Modular route controllers, middleware error handling, and scalable architecture.' },
+                                    { icon: Database, title: 'MongoDB Atlas', desc: 'NoSQL document storage securely hosted in the cloud with Mongoose ORM.' },
+                                    { icon: Lock, title: 'Authentication Pipeline', desc: 'Stateless secure JSON Web Tokens standardizing cross-origin requests.' }
                                 ].map((item, i) => (
-                                    <li key={i} className="flex gap-4">
-                                        <div className="w-12 h-12 shrink-0 rounded-xl bg-slate-100 flex items-center justify-center mt-1">
-                                            <item.icon className="w-6 h-6 text-slate-700" />
+                                    <li key={i} className="flex gap-5 group">
+                                        <div className="w-14 h-14 shrink-0 rounded-2xl bg-dark-surface border border-dark-border flex items-center justify-center mt-1 group-hover:border-primary transition-colors">
+                                            <item.icon className="w-6 h-6 text-primary" />
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-slate-900 mb-1">{item.title}</h4>
-                                            <p className="text-slate-500">{item.desc}</p>
+                                            <h4 className="text-lg font-bold text-white mb-2">{item.title}</h4>
+                                            <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                                         </div>
                                     </li>
                                 ))}
                             </ul>
                         </div>
                         
-                        <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-2xl relative">
-                            {/* Decorative terminal dots */}
-                            <div className="flex gap-2 mb-6">
-                                <div className="w-3 h-3 rounded-full bg-rose-500"></div>
-                                <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-                                <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+                        {/* Terminal Mockup */}
+                        <div className="relative">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-3xl opacity-20 blur-xl"></div>
+                            <div className="bg-[#0c0c16] rounded-3xl p-8 border border-dark-border shadow-2xl relative">
+                                <div className="flex items-center justify-between border-b border-dark-border/50 pb-4 mb-6">
+                                    <div className="flex gap-2">
+                                        <div className="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                                        <div className="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                        <div className="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                    </div>
+                                    <div className="text-xs text-slate-500 font-mono flex items-center gap-2">
+                                        <Terminal size={14}/> server.js
+                                    </div>
+                                </div>
+                                
+                                <pre className="font-mono text-sm overflow-x-auto leading-loose">
+                                    <code className="text-slate-300">
+                                        <span className="text-fuchsia-400">const</span> <span className="text-blue-400">router</span> = express.<span className="text-emerald-300">Router</span>();<br/>
+                                        <span className="text-slate-500">{"// Protected API Routes"}</span><br/>
+                                        router.<span className="text-blue-400">get</span>(<span className="text-amber-300">'/api/v1/projects'</span>, protect, <span className="text-fuchsia-400">async</span> (req, res) =&gt; {'{'}<br/>
+                                        &nbsp;&nbsp;<span className="text-fuchsia-400">const</span> projects = <span className="text-fuchsia-400">await</span> Project.<span className="text-blue-400">find</span>({'{'} user: req.user._id {'}'});<br/>
+                                        &nbsp;&nbsp;res.<span className="text-emerald-300">status</span>(200).<span className="text-blue-400">json</span>(projects);<br/>
+                                        {'}'});<br/><br/>
+                                        <span className="text-slate-500">{"// Database Connection"}</span><br/>
+                                        <span className="text-fuchsia-400">await</span> mongoose.<span className="text-blue-400">connect</span>(process.env.<span className="text-amber-300">MONGO_URI</span>);<br/>
+                                        console.<span className="text-emerald-300">log</span>(<span className="text-amber-300">'MongoDB connected to cluster'</span>);
+                                    </code>
+                                </pre>
                             </div>
-                            
-                            <pre className="font-mono text-sm text-slate-300 overflow-x-auto">
-                                <code className="block mb-2"><span className="text-fuchsia-400">const</span> <span className="text-blue-400">router</span> = express.<span className="text-emerald-300">Router</span>();</code>
-                                <code className="block mb-2 opacity-50">{"// Protected API Routes"}</code>
-                                <code className="block mb-2">router.<span className="text-blue-400">get</span>(<span className="text-amber-300">'/projects'</span>, protect, <span className="text-fuchsia-400">async</span> (req, res) =&gt; {'{'}</code>
-                                <code className="block mb-2 ml-4"><span className="text-fuchsia-400">const</span> projects = <span className="text-fuchsia-400">await</span> Project.<span className="text-blue-400">find</span>({'{'} user: req.user._id {'}'});</code>
-                                <code className="block mb-2 ml-4">res.<span className="text-blue-400">json</span>(projects);</code>
-                                <code className="block mb-2">{'}'});</code>
-                                <code className="block mb-2 mt-4 opacity-50">{"// Client Side Request"}</code>
-                                <code className="block mb-2"><span className="text-fuchsia-400">const</span> fetchProjects = <span className="text-fuchsia-400">async</span> () =&gt; {'{'}</code>
-                                <code className="block mb-2 ml-4"><span className="text-fuchsia-400">const</span> {'{'} data {'}'} = <span className="text-fuchsia-400">await</span> api.<span className="text-blue-400">get</span>(<span className="text-amber-300">'/api/projects'</span>);</code>
-                                <code className="block mb-2 ml-4"><span className="text-blue-400">setProjects</span>(data);</code>
-                                <code className="block mb-2">{'}'};</code>
-                            </pre>
-                            
-                            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-indigo-500/30 rounded-full blur-2xl"></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ROADMAP / DEPLOYMENT */}
-            <section className="py-24 bg-slate-900 text-white relative">
+            {/* DEPLOYMENT */}
+            <section className="py-24 bg-gradient-to-b from-dark-surface to-dark-bg relative z-10 border-t border-dark-border">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-20">
-                        <h2 className="text-sm font-bold text-indigo-400 tracking-widest uppercase mb-3">Roadmap & Deployment</h2>
-                        <h3 className="text-4xl font-display font-bold">From Localhost to the Cloud</h3>
+                    <div className="text-center mb-16">
+                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-3">Deployment</h2>
+                        <h3 className="text-3xl font-display font-bold">Cloud Infrastructure</h3>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+                    <div className="grid md:grid-cols-3 gap-6">
                         {[
-                            { step: 'Phase 1', title: 'Local Development', desc: 'Monorepo setup with Express server running alongside React dev server.', status: 'Completed', icon: Terminal },
-                            { step: 'Phase 2', title: 'MongoDB Atlas', desc: 'Migrating from local DB to global cloud cluster with automated backups.', status: 'Completed', icon: Database },
-                            { step: 'Phase 3', title: 'Vercel / Render', desc: 'Continuous integration and deployment pipelines pushing to live domains.', status: 'In Progress', icon: Activity },
-                            { step: 'Phase 4', title: 'Advanced Reporting', desc: 'Exporting PDF invoices and integrations with third-party payment gateways.', status: 'Upcoming', icon: Map }
+                            { title: 'MongoDB Atlas', desc: 'Global cloud database clustering.', icon: Database },
+                            { title: 'Vercel Edge', desc: 'Global CDN for React frontend.', icon: Zap },
+                            { title: 'Render', desc: 'Containerized Node.js API.', icon: Server }
                         ].map((item, i) => (
-                            <div key={i} className="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl relative group hover:bg-slate-800 transition-colors">
-                                <div className="text-indigo-400 font-mono text-xs mb-4">{item.step}</div>
-                                <h4 className="text-lg font-bold mb-2 flex items-center gap-2">
-                                    <item.icon className="w-5 h-5" /> {item.title}
-                                </h4>
-                                <p className="text-slate-400 mb-6">{item.desc}</p>
-                                <div className={`inline-block px-3 py-1 rounded-full text-xs font-semibold \${item.status === 'Completed' ? 'bg-emerald-500/20 text-emerald-400' : item.status === 'In Progress' ? 'bg-amber-500/20 text-amber-400' : 'bg-slate-700 text-slate-300'}`}>
-                                    {item.status}
+                            <div key={i} className="bg-dark-bg border border-dark-border p-6 rounded-2xl flex items-center gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-dark-surface flex items-center justify-center text-primary">
+                                    <item.icon size={24} />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-white mb-1">{item.title}</h4>
+                                    <p className="text-xs text-slate-400">{item.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -219,22 +249,25 @@ const LandingPage = () => {
             </section>
 
             {/* CTA FOOTER */}
-            <section className="py-24 relative overflow-hidden">
-                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">Take control of your freelance business.</h2>
-                    <p className="text-xl text-slate-600 mb-10">Stop guessing your hourly rate. Start measuring your success.</p>
+            <section className="py-32 relative overflow-hidden z-10">
+                <div className="max-w-4xl mx-auto px-6 text-center relative z-20">
+                    <h2 className="text-5xl md:text-6xl font-display font-black mb-8 leading-tight tracking-tight">
+                        Take control of your <br/>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">freelance business.</span>
+                    </h2>
+                    <p className="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto">Stop guessing your hourly rate. Start measuring your success precisely and growing your revenue.</p>
                     
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link to="/register" className="inline-flex items-center justify-center px-10 py-5 bg-indigo-600 text-white rounded-2xl font-bold text-lg hover:bg-indigo-700 shadow-glow transition-all hover:-translate-y-1">
-                            Get Started
+                    <div className="flex flex-col sm:flex-row justify-center gap-6">
+                        <Link to="/register" className="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-[0_0_30px_rgba(79,70,229,0.4)] hover:shadow-[0_0_50px_rgba(217,70,239,0.6)] transition-all hover:-translate-y-1">
+                            Get Started Now
                         </Link>
-                        <a href="https://github.com/bhashkar017/Freelance-Time-Tracker" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-white text-slate-900 border border-slate-200 rounded-2xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-all">
-                            <Terminal className="w-5 h-5" /> View Project Code
+                        <a href="https://github.com/bhashkar017/Freelance-Time-Tracker" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-dark-surface border border-dark-border text-white rounded-xl font-bold text-lg hover:border-slate-500 hover:bg-dark-surface/50 transition-all">
+                            <Code2 className="w-6 h-6 text-slate-400" /> View on GitHub
                         </a>
                     </div>
                 </div>
                 
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-100 rounded-full blur-3xl -z-10 opacity-50"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl max-h-[400px] bg-primary/20 rounded-full blur-[150px] -z-10 pointer-events-none"></div>
             </section>
             
         </div>

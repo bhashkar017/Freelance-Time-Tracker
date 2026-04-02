@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import { motion } from 'framer-motion';
+import { Mail, Lock, User, ArrowRight, Chrome } from 'lucide-react';
 
 function Register() {
     const [name, setName] = useState('');
@@ -25,82 +27,127 @@ function Register() {
     };
 
     return (
-        <div style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', overflow: 'hidden', padding: '40px 0' }}>
+        <div className="min-h-screen bg-dark-bg text-white relative flex items-center justify-center pt-24 pb-12 px-6 overflow-x-hidden">
             {/* Ambient Background */}
-            <div style={{ position: 'absolute', top: '10%', right: '10%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(217, 70, 239, 0.15) 0%, transparent 70%)', filter: 'blur(50px)', zIndex: -1 }}></div>
-            <div style={{ position: 'absolute', bottom: '0', left: '10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%)', filter: 'blur(50px)', zIndex: -1 }}></div>
+            <div className="fixed top-[-10%] right-[-5%] w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="fixed bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-primary/15 rounded-full blur-[120px] pointer-events-none"></div>
             
-            <div className="animate-slide-up" style={{ width: '100%', maxWidth: '480px', zIndex: 1 }}>
-                <div className="glass-panel" style={{ padding: '40px 50px' }}>
-                    <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-                        <h2 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>Join Us</h2>
-                        <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem' }}>Start tracking your freelance career today.</p>
+            <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="w-full max-w-md relative z-10"
+            >
+                <div className="bg-dark-surface/80 backdrop-blur-xl border border-dark-border p-8 py-10 rounded-3xl shadow-glass-dark">
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl font-display font-bold mb-3 tracking-wide">Join Us</h2>
+                        <p className="text-slate-400 text-sm">Start tracking your freelance career today.</p>
                     </div>
 
                     {error && (
-                        <div style={{ background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', padding: '12px 16px', borderRadius: '12px', marginBottom: '20px', border: '1px solid rgba(239, 68, 68, 0.2)', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        <div className="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl text-rose-400 text-sm flex items-center gap-3">
+                            <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                             {error}
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit}>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label>Full Name</label>
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                                placeholder="John Doe"
-                                style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(4px)' }}
-                            />
-                        </div>
-                        <div style={{ marginBottom: '16px' }}>
-                            <label>Email Address</label>
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                placeholder="name@company.com"
-                                style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(4px)' }}
-                            />
-                        </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '25px' }}>
-                            <div>
-                                <label>Password</label>
+                    <form onSubmit={handleSubmit} className="space-y-5">
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <User className="h-5 w-5 text-slate-500" />
+                                </div>
                                 <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
                                     required
-                                    placeholder="••••••••"
-                                    style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(4px)' }}
-                                />
-                            </div>
-                            <div>
-                                <label>Confirm</label>
-                                <input
-                                    type="password"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
-                                    placeholder="••••••••"
-                                    style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(4px)' }}
+                                    placeholder="John Doe"
+                                    className="block w-full pl-11 pr-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                                 />
                             </div>
                         </div>
-                        <button type="submit" className="btn-neon" style={{ width: '100%', padding: '16px', fontSize: '1.1rem' }}>
+
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <Mail className="h-5 w-5 text-slate-500" />
+                                </div>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    placeholder="name@company.com"
+                                    className="block w-full pl-11 pr-4 py-3 bg-dark-bg border border-dark-border rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <Lock className="h-4 w-4 text-slate-500" />
+                                    </div>
+                                    <input
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                        placeholder="••••••••"
+                                        className="block w-full pl-9 pr-3 py-3 bg-dark-bg border border-dark-border rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-300 mb-2">Confirm</label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <Lock className="h-4 w-4 text-slate-500" />
+                                    </div>
+                                    <input
+                                        type="password"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        required
+                                        placeholder="••••••••"
+                                        className="block w-full pl-9 pr-3 py-3 bg-dark-bg border border-dark-border rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" className="w-full flex items-center justify-center py-3.5 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold shadow-glow-primary hover:-translate-y-1 transition-all duration-300 group mt-4">
                             Create Account
+                            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </form>
 
-                    <p style={{ marginTop: '35px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                        Already have an account? <Link to="/login" style={{ color: 'var(--primary-color)', fontWeight: '600', textDecoration: 'none' }}>Sign In</Link>
+                    <div className="mt-8 relative">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-dark-border"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="px-3 bg-dark-surface text-slate-500">Or continue with</span>
+                        </div>
+                    </div>
+
+                    <div className="mt-6">
+                        <button type="button" className="w-full flex items-center justify-center py-3 px-4 bg-dark-bg border border-dark-border text-white rounded-xl font-semibold hover:bg-dark-surface/50 hover:border-slate-600 transition-all duration-300">
+                            <Chrome className="w-5 h-5 mr-3 text-slate-300 border-none" />
+                            Sign up with Google
+                        </button>
+                    </div>
+
+                    <p className="mt-8 text-center text-sm text-slate-400">
+                        Already have an account? <Link to="/login" className="text-primary font-bold hover:text-primary-hover transition-colors ml-1">Sign In</Link>
                     </p>
                 </div>
-            </div>
+            </motion.div>
         </div>
     );
 }
