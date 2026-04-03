@@ -5,8 +5,8 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Float, Sparkles, PerspectiveCamera } from '@react-three/drei';
 import { 
     Clock, BarChart3, Shield, Layout, Server, Database,
-    CheckCircle2, ArrowRight, Zap, Target, Lock, Activity,
-    Code2, Map, Terminal, Cpu
+    CheckCircle2, ArrowRight, Zap, Target, Lock,
+    Code2, Terminal, Cpu
 } from 'lucide-react';
 
 const fadeIn = {
