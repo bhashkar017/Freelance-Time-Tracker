@@ -18,7 +18,7 @@ function Login() {
                 await googleLogin(tokenResponse.access_token);
                 navigate('/dashboard');
             } catch (err) {
-                setError('Google login failed');
+                setError(err.response?.data?.message || 'Google login failed');
             }
         }
     });

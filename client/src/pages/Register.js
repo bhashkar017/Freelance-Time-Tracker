@@ -20,7 +20,7 @@ function Register() {
                 await googleLogin(tokenResponse.access_token);
                 navigate('/dashboard');
             } catch (err) {
-                setError('Google signup failed');
+                setError(err.response?.data?.message || 'Google signup failed');
             }
         }
     });
