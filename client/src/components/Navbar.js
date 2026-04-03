@@ -34,23 +34,25 @@ const Navbar = () => {
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link to="/" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Home</Link>
-                        <Link to="/about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">About Us</Link>
-                        <Link to="/contact" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Contact</Link>
-                        <Link to="/service" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Service</Link>
-                        <Link to="/developer" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Developer Profile</Link>
-
-                        {user ? (
-                            <div className="flex items-center space-x-6 border-l border-dark-border pl-6">
-                                <Link to="/dashboard" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Dashboard</Link>
-                                <button onClick={handleLogout} className="text-sm font-medium text-rose-400 hover:text-rose-300 transition-colors">Logout</button>
-                            </div>
+                        {!user ? (
+                            <>
+                                <Link to="/" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Home</Link>
+                                <Link to="/about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">About Us</Link>
+                                <Link to="/contact" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Contact</Link>
+                                <Link to="/service" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Service</Link>
+                                <Link to="/developer" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Developer Profile</Link>
+                                
+                                <div className="flex items-center space-x-4 border-l border-dark-border pl-6">
+                                    <Link to="/login" className="text-sm font-medium text-white hover:text-primary transition-colors">Login</Link>
+                                    <Link to="/register" className="text-sm font-semibold bg-primary text-white px-5 py-2.5 rounded-full hover:shadow-glow-primary transition-all duration-300 transform hover:-translate-y-0.5">
+                                        Sign Up
+                                    </Link>
+                                </div>
+                            </>
                         ) : (
-                            <div className="flex items-center space-x-4 border-l border-dark-border pl-6">
-                                <Link to="/login" className="text-sm font-medium text-white hover:text-primary transition-colors">Login</Link>
-                                <Link to="/register" className="text-sm font-semibold bg-primary text-white px-5 py-2.5 rounded-full hover:shadow-glow-primary transition-all duration-300 transform hover:-translate-y-0.5">
-                                    Sign Up
-                                </Link>
+                            <div className="flex items-center space-x-8">
+                                <Link to="/dashboard" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Dashboard</Link>
+                                <button onClick={handleLogout} className="text-sm font-medium text-rose-400 hover:text-rose-300 transition-colors border-l border-dark-border pl-6">Logout</button>
                             </div>
                         )}
                     </div>
@@ -69,21 +71,21 @@ const Navbar = () => {
             {mobileMenuOpen && (
                 <div className="absolute top-full left-0 w-full bg-dark-surface border-b border-dark-border shadow-2xl md:hidden">
                     <div className="px-6 py-4 flex flex-col space-y-4">
-                        <Link to="/" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Home</Link>
-                        <Link to="/about" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
-                        <Link to="/contact" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-                        <Link to="/service" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Service</Link>
-                        <Link to="/developer" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Developer Profile</Link>
-                        <hr className="border-dark-border" />
-                        {user ? (
+                        {!user ? (
                             <>
-                                <Link to="/dashboard" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
-                                <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="text-rose-400 text-left">Logout</button>
+                                <Link to="/" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+                                <Link to="/about" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>About Us</Link>
+                                <Link to="/contact" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+                                <Link to="/service" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Service</Link>
+                                <Link to="/developer" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Developer Profile</Link>
+                                <hr className="border-dark-border" />
+                                <Link to="/login" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Login</Link>
+                                <Link to="/register" className="text-primary font-semibold" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
                             </>
                         ) : (
                             <>
-                                <Link to="/login" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Login</Link>
-                                <Link to="/register" className="text-primary font-semibold" onClick={() => setMobileMenuOpen(false)}>Sign Up</Link>
+                                <Link to="/dashboard" className="text-slate-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+                                <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="text-rose-400 text-left">Logout</button>
                             </>
                         )}
                     </div>
