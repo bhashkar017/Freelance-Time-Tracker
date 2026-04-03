@@ -27,6 +27,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+// Trust the proxy (Render load balancer) to ensure express-rate-limit works correctly
+app.set('trust proxy', 1);
+
 // Rate Limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
