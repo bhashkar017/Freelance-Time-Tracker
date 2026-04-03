@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
 import { format } from 'date-fns';
+import { useModal } from '../context/ModalContext';
+import { 
+    Clock, 
+    Calendar, 
+    MessageSquare, 
+    Briefcase, 
+    Trash2, 
+    Plus,
+    Activity
+} from 'lucide-react';
 
 const TimeTracker = () => {
+    const { showAlert, showConfirm } = useModal();
     const [projects, setProjects] = useState([]);
     const [entries, setEntries] = useState([]);
     const [formData, setFormData] = useState({
@@ -63,89 +74,159 @@ const TimeTracker = () => {
             setFormData({ ...formData, description: '', startTime: '', endTime: '' });
         } catch (err) {
             console.error(err);
-            alert('Error logging time: ' + (err.response?.data?.message || err.message));
+            showAlert('Log Error', err.response?.data?.message || 'Failed to log your time. Please check your data and try again.');
         } finally {
             setLoading(false);
         }
     };
 
     const deleteEntry = async (id) => {
-        if (window.confirm('Are you sure?')) {
-            try {
-                await api.delete(`/api/time-entries/${id}`); // Fixed URL spaces
-                setEntries(entries.filter(entry => entry._id !== id));
-            } catch (err) {
-                console.error(err);
-                alert('Error deleting entry');
+        showConfirm(
+            'Delete Entry?',
+            'Are you sure you want to delete this time entry? This cannot be undone.',
+            async () => {
+                try {
+                    await api.delete(`/api/time-entries/${id}`);
+                    setEntries(entries.filter(entry => entry._id !== id));
+                } catch (err) {
+                    console.error(err);
+                    showAlert('Error', 'Failed to delete time entry.');
+                }
             }
-        }
+        );
     };
 
     return (
-        <div className="container" style={{ paddingTop: '80px', minHeight: '80vh' }}>
-            <h2>Time Tracker</h2>
-            <div className="card" style={{ marginBottom: '30px' }}>
-                <h3>Log Hours</h3>
-                <form onSubmit={onSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr auto', gap: '10px', alignItems: 'end' }}>
-                    <div>
-                        <label>Date</label>
-                        <input type="date" name="date" value={formData.date} onChange={onChange} required />
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+            <div className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-12 bg-primary/20 text-primary rounded-2xl flex items-center justify-center">
+                    <Clock size={28} />
+                </div>
+                <div>
+                    <h1 className="text-4xl font-display font-bold text-white tracking-tight">Time Tracker</h1>
+                    <p className="text-slate-400 mt-1">Log your hours and track your productivity across projects.</p>
+                </div>
+            </div>
+
+            <div className="bg-dark-surface/60 backdrop-blur-xl border border-dark-border p-8 rounded-3xl shadow-glass-dark mb-10 relative overflow-hidden group">
+                <div className="absolute top-[-50px] right-[-50px] w-[200px] h-[200px] bg-primary/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-primary/10 transition-all duration-700"></div>
+                
+                <h3 className="text-xl font-display font-bold text-white mb-8 flex items-center gap-2">
+                    <Activity className="text-primary" size={20} /> Log New Activity
+                </h3>
+                
+                <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 items-end">
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
+                            <Calendar size={14} /> Date
+                        </label>
+                        <input 
+                            type="date" name="date" value={formData.date} onChange={onChange} required 
+                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        />
                     </div>
-                    <div>
-                        <label>Project</label>
-                        <select name="project" value={formData.project} onChange={onChange} required>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
+                            <Briefcase size={14} /> Project
+                        </label>
+                        <select 
+                            name="project" value={formData.project} onChange={onChange} required
+                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
+                        >
                             <option value="">Select Project</option>
                             {projects.map(p => (
                                 <option key={p._id} value={p._id}>{p.name}</option>
                             ))}
                         </select>
                     </div>
-                    <div>
-                        <label>Description</label>
-                        <input type="text" name="description" value={formData.description} onChange={onChange} placeholder="What did you do?" required />
+                    <div className="space-y-2 lg:col-span-1 xl:col-span-1">
+                        <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
+                            <MessageSquare size={14} /> Description
+                        </label>
+                        <input 
+                            type="text" name="description" value={formData.description} onChange={onChange} 
+                            placeholder="What did you do?" required 
+                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        />
                     </div>
-                    <div>
-                        <label>Start</label>
-                        <input type="time" name="startTime" value={formData.startTime} onChange={onChange} required />
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-400">Start Time</label>
+                        <input 
+                            type="time" name="startTime" value={formData.startTime} onChange={onChange} required 
+                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        />
                     </div>
-                    <div>
-                        <label>End</label>
-                        <input type="time" name="endTime" value={formData.endTime} onChange={onChange} required />
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-slate-400">End Time</label>
+                        <input 
+                            type="time" name="endTime" value={formData.endTime} onChange={onChange} required 
+                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                        />
                     </div>
 
-                    <button type="submit" className="btn" style={{ height: '42px', marginBottom: '10px' }} disabled={loading}>
-                        {loading ? 'Adding...' : 'Add'}
+                    <button 
+                        type="submit" 
+                        disabled={loading}
+                        className="bg-primary text-white py-2.5 px-6 rounded-xl font-bold hover:shadow-glow-primary transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 flex items-center justify-center gap-2"
+                    >
+                        {loading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <Plus size={20} />}
+                        Log Time
                     </button>
                 </form>
             </div>
 
-            <div className="card">
-                <h3>Recent Activity</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Project</th>
-                            <th>Description</th>
-                            <th>Duration</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {entries.map(entry => (
-                            <tr key={entry._id}>
-                                <td>{format(new Date(entry.date), 'MMM dd, yyyy')}</td>
-                                <td>{entry.project ? entry.project.name : 'Unknown'}</td>
-                                <td>{entry.description}</td>
-                                <td>{entry.duration ? entry.duration.toFixed(2) : 0} hrs</td>
-                                <td>
-                                    <button onClick={() => deleteEntry(entry._id)} style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}>Delete</button>
-                                </td>
+            <div className="bg-dark-surface/60 backdrop-blur-xl border border-dark-border rounded-3xl shadow-glass-dark overflow-hidden">
+                <div className="px-8 py-6 border-b border-dark-border flex justify-between items-center">
+                    <h3 className="text-xl font-display font-bold text-white">Recent Activity</h3>
+                    <div className="px-3 py-1 bg-dark-bg/50 border border-dark-border rounded-full text-xs font-semibold text-slate-400">
+                        Total: {entries.length} Entries
+                    </div>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="bg-dark-surface/50">
+                                <th className="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Date</th>
+                                <th className="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Project</th>
+                                <th className="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Description</th>
+                                <th className="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest">Duration</th>
+                                <th className="px-8 py-4 text-xs font-bold text-slate-500 uppercase tracking-widest text-right">Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-                {entries.length === 0 && <p style={{ textAlign: 'center', marginTop: '20px' }}>No entries found.</p>}
+                        </thead>
+                        <tbody className="divide-y divide-dark-border">
+                            {entries.map(entry => (
+                                <tr key={entry._id} className="hover:bg-white/5 transition-colors group">
+                                    <td className="px-8 py-5 text-slate-300 text-sm font-medium">{format(new Date(entry.date), 'MMM dd, yyyy')}</td>
+                                    <td className="px-8 py-5">
+                                        <span className="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-lg text-xs font-bold">
+                                            {entry.project ? entry.project.name : 'Unknown'}
+                                        </span>
+                                    </td>
+                                    <td className="px-8 py-5 text-slate-400 text-sm">{entry.description}</td>
+                                    <td className="px-8 py-5">
+                                        <span className="text-white font-display font-bold">{entry.duration ? entry.duration.toFixed(2) : 0}</span>
+                                        <span className="text-slate-500 text-xs ml-1">hrs</span>
+                                    </td>
+                                    <td className="px-8 py-5 text-right">
+                                        <button 
+                                            onClick={() => deleteEntry(entry._id)} 
+                                            className="p-2 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-all"
+                                            title="Delete Entry"
+                                        >
+                                            <Trash2 size={18} />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                {entries.length === 0 && (
+                    <div className="py-20 text-center">
+                        <Activity className="w-12 h-12 text-slate-600 mx-auto mb-4" />
+                        <p className="text-slate-500 font-medium">No activity logged yet.</p>
+                    </div>
+                )}
             </div>
         </div>
     );
