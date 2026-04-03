@@ -154,6 +154,52 @@ const LandingPage = () => {
                 </div>
             </section>
 
+            {/* PLATFORM VISUALS */}
+            <section className="py-24 relative overflow-hidden bg-dark-bg z-10 border-t border-dark-border">
+                <div className="max-w-7xl mx-auto px-6">
+                    {/* Time Tracking mockup */}
+                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+                        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                            <h3 className="text-3xl font-display font-bold mb-4">Precision Time Tracking</h3>
+                            <p className="text-slate-400 leading-relaxed text-lg mb-6">Stop guessing your billable hours. Our tracker runs seamlessly in the background, logging your coding sessions per-project with zero-friction start and stop mechanisms.</p>
+                            <ul className="space-y-3 mb-8">
+                                <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="w-5 h-5 text-emerald-400" /> Granular project assignment</li>
+                                <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="w-5 h-5 text-emerald-400" /> Manual time-entry overrides</li>
+                            </ul>
+                        </motion.div>
+                        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
+                            <div className="absolute inset-0 bg-blue-500/20 blur-[100px] -z-10 rounded-full"></div>
+                            <img src="/images/dashboard-mockup.png" alt="Time Tracking Dashboard" className="rounded-2xl border border-dark-border shadow-2xl w-full" />
+                        </motion.div>
+                    </div>
+
+                    {/* Analytics mockup */}
+                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+                        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="order-2 lg:order-1 relative">
+                            <div className="absolute inset-0 bg-fuchsia-500/20 blur-[100px] -z-10 rounded-full"></div>
+                            <img src="/images/analytics-mockup.png" alt="Analytics Charts" className="rounded-2xl border border-dark-border shadow-2xl w-full" />
+                        </motion.div>
+                        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="order-1 lg:order-2">
+                            <h3 className="text-3xl font-display font-bold mb-4">Dynamic Revenue Analytics</h3>
+                            <p className="text-slate-400 leading-relaxed text-lg mb-6">Visualize your freelance growth instantly. Our analytics engine maps tracked time directly to your billable rates, giving you crystal clear insights into your highest-paying clients.</p>
+                        </motion.div>
+                    </div>
+
+                    {/* Client Management mockup */}
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                            <h3 className="text-3xl font-display font-bold mb-4">Seamless Client Management</h3>
+                            <p className="text-slate-400 leading-relaxed text-lg mb-6">Keep your business organized. A centralized hub for all your client contracts, outstanding projects, and overall profitability. Beautifully tracked.</p>
+                        </motion.div>
+                        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
+                            <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] -z-10 rounded-full"></div>
+                            <img src="/images/client-mockup.png" alt="Client Management" className="rounded-2xl border border-dark-border shadow-2xl w-full" />
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+
             {/* MERN ARCHITECTURE / TECH STACK */}
             <section className="py-32 relative overflow-hidden bg-dark-bg z-10">
                 <div className="absolute -left-40 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-secondary/10 rounded-full blur-[100px] pointer-events-none"></div>

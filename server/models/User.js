@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     createdAt: {
         type: Date,
@@ -28,8 +28,8 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 
 // Encrypt password using bcrypt
 UserSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) {
-        next();
+    if (!this.isModified('password') || !this.password) {
+        return next();
     }
 
     const salt = await bcrypt.genSalt(10);

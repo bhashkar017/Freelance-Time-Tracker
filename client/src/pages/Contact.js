@@ -1,0 +1,87 @@
+import React from 'react';
+import { Mail, MapPin, Phone, Github, Linkedin } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const Contact = () => {
+    return (
+        <div className="min-h-screen bg-dark-bg text-white pt-32 pb-24 px-6 relative overflow-hidden">
+            {/* Ambient Background */}
+            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-secondary/10 blur-[100px] rounded-full pointer-events-none -z-10"></div>
+            
+            <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+                {/* Left Side: Info */}
+                <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+                    <h1 className="text-5xl font-display font-black mb-6 tracking-tight">Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Connect</span></h1>
+                    <p className="text-slate-400 text-lg leading-relaxed mb-10">
+                        Have a project in mind, need support, or just want to chat about the full stack MERN architecture? Get in touch with us using the form.
+                    </p>
+
+                    <div className="space-y-8 mb-12">
+                        <div className="flex items-center gap-5">
+                            <div className="w-12 h-12 bg-dark-surface border border-dark-border rounded-xl flex items-center justify-center text-primary">
+                                <Mail size={24} />
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-bold">Email Us</h4>
+                                <p className="text-slate-400 text-sm">support@freelancetracker.com</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-5">
+                            <div className="w-12 h-12 bg-dark-surface border border-dark-border rounded-xl flex items-center justify-center text-secondary">
+                                <MapPin size={24} />
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-bold">Location</h4>
+                                <p className="text-slate-400 text-sm">San Francisco, CA (Remote Global)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="border-t border-dark-border pt-8">
+                        <h4 className="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4">Follow the Developer</h4>
+                        <div className="flex gap-4">
+                            <a href="https://github.com/bhashkar017" target="_blank" rel="noreferrer" className="w-12 h-12 bg-dark-surface border border-dark-border rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-500 transition-colors">
+                                <Github size={22} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/bhashkar017/" target="_blank" rel="noreferrer" className="w-12 h-12 bg-dark-surface border border-dark-border rounded-full flex items-center justify-center text-slate-300 hover:text-white hover:border-slate-500 transition-colors">
+                                <Linkedin size={22} />
+                            </a>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* Right Side: Form */}
+                <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
+                    <div className="bg-dark-surface/80 backdrop-blur-xl border border-dark-border p-8 rounded-3xl shadow-2xl">
+                        <h3 className="text-2xl font-bold mb-6">Send a Message</h3>
+                        <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-slate-400 mb-2">First Name</label>
+                                    <input type="text" placeholder="John" className="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm font-medium text-slate-400 mb-2">Last Name</label>
+                                    <input type="text" placeholder="Doe" className="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" />
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-400 mb-2">Email Address</label>
+                                <input type="email" placeholder="john@example.com" className="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-slate-400 mb-2">Message</label>
+                                <textarea rows="5" placeholder="How can we help?" className="w-full bg-dark-bg border border-dark-border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary transition-colors"></textarea>
+                            </div>
+                            <button type="submit" className="w-full py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-xl hover:opacity-90 transition-opacity">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
+    );
+};
+
+export default Contact;
