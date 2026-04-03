@@ -7,7 +7,6 @@ import {
     User,
     Mail,
     DollarSign,
-    MoreVertical,
     AlertCircle,
     Loader2
 } from 'lucide-react';

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertCircle, CheckCircle2, Info, X } from 'lucide-react';
+import { AlertCircle, Info } from 'lucide-react';
 
 const ModalContext = createContext();
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api/axios';
 import { format } from 'date-fns';
 import { useModal } from '../context/ModalContext';
-import { FileText, Download, Printer, User, Search, Loader2 } from 'lucide-react';
+import { FileText, Printer, User, Search, Loader2 } from 'lucide-react';
 
 const InvoiceView = () => {
     const [clients, setClients] = useState([]);
@@ -127,10 +127,10 @@ const InvoiceView = () => {
                         <thead>
                             <tr className="border-b-2 border-slate-800 text-left">
                                 <th className="py-4 text-sm font-bold uppercase tracking-wider text-slate-800 text-left">Item Details</th>
-                                <th className="py-4 text-center text-sm font-bold uppercase tracking-wider text-slate-800 text-center">Date</th>
-                                <th className="py-4 text-center text-sm font-bold uppercase tracking-wider text-slate-800 text-center">Qty (Hrs)</th>
-                                <th className="py-4 text-right text-sm font-bold uppercase tracking-wider text-slate-800 text-right">Unit Price</th>
-                                <th className="py-4 text-right text-sm font-bold uppercase tracking-wider text-slate-800 text-right">Subtotal</th>
+                                <th className="py-4 text-sm font-bold uppercase tracking-wider text-slate-800 text-center">Date</th>
+                                <th className="py-4 text-sm font-bold uppercase tracking-wider text-slate-800 text-center">Qty (Hrs)</th>
+                                <th className="py-4 text-sm font-bold uppercase tracking-wider text-slate-800 text-right">Unit Price</th>
+                                <th className="py-4 text-sm font-bold uppercase tracking-wider text-slate-800 text-right">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
@@ -140,10 +140,10 @@ const InvoiceView = () => {
                                         <p className="font-bold text-slate-800">{entry.project ? entry.project.name : 'Unknown Project'}</p>
                                         <p className="text-sm text-slate-500">{entry.description || 'No description'}</p>
                                     </td>
-                                    <td className="py-6 text-center text-slate-600 italic text-center">{entry.date ? format(new Date(entry.date), 'MMM dd, yyyy') : 'N/A'}</td>
-                                    <td className="py-6 text-center font-bold text-slate-800 text-center">{entry.duration ? entry.duration.toFixed(2) : '0.00'}</td>
-                                    <td className="py-6 text-right text-slate-600 text-right">${entry.project?.hourlyRate || 0}</td>
-                                    <td className="py-6 text-right font-black text-slate-800 text-right">${((entry.duration || 0) * (entry.project?.hourlyRate || 0)).toFixed(2)}</td>
+                                    <td className="py-6 text-slate-600 italic text-center">{entry.date ? format(new Date(entry.date), 'MMM dd, yyyy') : 'N/A'}</td>
+                                    <td className="py-6 font-bold text-slate-800 text-center">{entry.duration ? entry.duration.toFixed(2) : '0.00'}</td>
+                                    <td className="py-6 text-slate-600 text-right">${entry.project?.hourlyRate || 0}</td>
+                                    <td className="py-6 font-black text-slate-800 text-right">${((entry.duration || 0) * (entry.project?.hourlyRate || 0)).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
