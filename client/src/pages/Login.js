@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import { Mail, Lock, ArrowRight } from 'lucide-react';
+import { useGoogleLogin } from '@react-oauth/google';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -14,11 +15,8 @@ function Login() {
     const handleGoogleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             try {
-                // Not ideal for implicit flow but we use id_token if possible, or access_token.
-                // Wait, useGoogleLogin default flow is 'implicit' giving access_token. 
-                // Wait, backend expects an idToken to verify through google-auth-library.
-                // If we use useGoogleLogin, we can't easily get an idToken without setting flow to auth-code or using the GoogleLogin component.
-                // Let's import GoogleLogin and use that instead since it provides the idToken credential!
+                await googleLogin(tokenResponse.access_token);
+                navigate('/dashboard');
             } catch (err) {
                 setError('Google login failed');
             }
