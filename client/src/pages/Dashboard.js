@@ -60,7 +60,7 @@ const Dashboard = () => {
                     className="mb-10"
                 >
                     <h1 className="text-4xl font-display font-bold mb-2">
-                        Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">{user?.name || 'Freelancer'}</span>!
+                        Welcome back, <span className="text-primary">{user?.name || 'Freelancer'}</span>!
                     </h1>
                     <p className="text-slate-400 text-lg">Here's an overview of your freelance business.</p>
                 </motion.div>
@@ -100,11 +100,11 @@ const Dashboard = () => {
                     </motion.div>
 
                     {/* Stat Card 3: Projects */}
-                    <motion.div variants={itemVariants} className="bg-dark-surface/80 backdrop-blur-xl border border-dark-border p-6 rounded-3xl relative overflow-hidden group shadow-glass-dark hover:border-purple-500/30 transition-colors">
-                        <div className="absolute -right-4 -top-4 p-8 bg-purple-500/5 rounded-full group-hover:bg-purple-500/10 transition-colors">
-                            <LayoutGrid size={80} className="text-purple-500/20" />
+                    <motion.div variants={itemVariants} className="bg-dark-surface/80 backdrop-blur-xl border border-dark-border p-6 rounded-3xl relative overflow-hidden group shadow-glass-dark hover:border-secondary/30 transition-colors">
+                        <div className="absolute -right-4 -top-4 p-8 bg-secondary/5 rounded-full group-hover:bg-secondary/10 transition-colors">
+                            <LayoutGrid size={80} className="text-secondary/20" />
                         </div>
-                        <div className="w-12 h-12 bg-purple-500/20 text-purple-400 rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(168,85,247,0.2)]">
+                        <div className="w-12 h-12 bg-secondary/20 text-secondary rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
                             <LayoutGrid size={24} />
                         </div>
                         <h3 className="text-slate-400 font-medium mb-1">Active Projects</h3>

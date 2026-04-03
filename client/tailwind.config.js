@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#4f46e5",
-        secondary: "#d946ef",
+        primary: "#06b6d4",       // Electric Cyan
+        secondary: "#10b981",     // Tech Emerald
         "dark-bg": "#0B0B14",     // deeper background
         "dark-surface": "#131320", // surface layer
         "dark-border": "#212134",

@@ -133,7 +133,7 @@ function Register() {
                             </div>
                         </div>
 
-                        <button type="submit" className="w-full flex items-center justify-center py-3.5 px-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold shadow-glow-primary hover:-translate-y-1 transition-all duration-300 group mt-4">
+                        <button type="submit" className="w-full flex items-center justify-center py-3.5 px-4 bg-primary text-white rounded-xl font-bold shadow-glow-primary hover:-translate-y-1 transition-all duration-300 group mt-4">
                             Create Account
                             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                         </button>

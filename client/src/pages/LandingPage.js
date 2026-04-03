@@ -30,8 +30,8 @@ const FloatingAbstract = () => {
             <mesh scale={1.2}>
                 <torusKnotGeometry args={[1, 0.3, 128, 32]} />
                 <meshStandardMaterial 
-                    color="#4f46e5" 
-                    emissive="#d946ef"
+                    color="#06b6d4" 
+                    emissive="#10b981"
                     emissiveIntensity={0.5}
                     roughness={0.2}
                     metalness={0.8}
@@ -47,7 +47,7 @@ const LandingPage = () => {
         <div className="bg-dark-bg text-white overflow-hidden font-sans min-h-screen">
             
             {/* Ambient Animated Background Grid */}
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#4f46e511_1px,transparent_1px),linear-gradient(to_bottom,#4f46e511_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#06b6d411_1px,transparent_1px),linear-gradient(to_bottom,#06b6d411_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
 
             {/* HERO SECTION */}
             <section className="relative w-full min-h-screen flex items-center pt-24 pb-32 z-10">
@@ -65,7 +65,7 @@ const LandingPage = () => {
                         
                         <motion.h1 variants={fadeIn} className="text-6xl lg:text-8xl font-display font-black leading-[1.05] tracking-tight mb-8">
                             Master your <br/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-purple-400">
+                            <span className="text-primary">
                                 freelance time.
                             </span>
                         </motion.h1>
@@ -75,7 +75,7 @@ const LandingPage = () => {
                         </motion.p>
                         
                         <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-5">
-                            <Link to="/register" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-glow-primary hover:shadow-[0_0_40px_rgba(217,70,239,0.5)] hover:-translate-y-1 transition-all duration-300">
+                            <Link to="/register" className="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-bold text-lg shadow-glow-primary hover:shadow-[0_0_40px_rgba(6,182,212,0.3)] hover:-translate-y-1 transition-all duration-300">
                                 Start Building Free
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
@@ -106,11 +106,11 @@ const LandingPage = () => {
                             <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
                             <ambientLight intensity={0.5} />
                             <directionalLight position={[10, 10, 5]} intensity={1} color="#f8fafc" />
-                            <pointLight position={[-10, -10, -5]} intensity={2} color="#d946ef" />
+                            <pointLight position={[-10, -10, -5]} intensity={2} color="#10b981" />
                             
                             <Suspense fallback={null}>
                                 <FloatingAbstract />
-                                <Sparkles count={200} scale={10} size={2} speed={0.4} color="#ec4899" opacity={0.5} />
+                                <Sparkles count={200} scale={10} size={2} speed={0.4} color="#06b6d4" opacity={0.5} />
                             </Suspense>
                             <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
                         </Canvas>
@@ -234,7 +234,7 @@ const LandingPage = () => {
                         
                         {/* Terminal Mockup */}
                         <div className="relative">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-3xl opacity-20 blur-xl"></div>
+                            <div className="absolute -inset-1 bg-primary rounded-3xl opacity-20 blur-xl"></div>
                             <div className="bg-[#0c0c16] rounded-3xl p-8 border border-dark-border shadow-2xl relative">
                                 <div className="flex items-center justify-between border-b border-dark-border/50 pb-4 mb-6">
                                     <div className="flex gap-2">
@@ -267,7 +267,7 @@ const LandingPage = () => {
             </section>
 
             {/* DEPLOYMENT */}
-            <section className="py-24 bg-gradient-to-b from-dark-surface to-dark-bg relative z-10 border-t border-dark-border">
+            <section className="py-24 bg-dark-bg relative z-10 border-t border-dark-border">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="text-center mb-16">
                         <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-3">Deployment</h2>
@@ -299,12 +299,12 @@ const LandingPage = () => {
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-20">
                     <h2 className="text-5xl md:text-6xl font-display font-black mb-8 leading-tight tracking-tight">
                         Take control of your <br/>
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">freelance business.</span>
+                        <span className="text-primary">freelance business.</span>
                     </h2>
                     <p className="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto">Stop guessing your hourly rate. Start measuring your success precisely and growing your revenue.</p>
                     
                     <div className="flex flex-col sm:flex-row justify-center gap-6">
-                        <Link to="/register" className="inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-primary to-secondary text-white rounded-xl font-bold text-lg shadow-[0_0_30px_rgba(79,70,229,0.4)] hover:shadow-[0_0_50px_rgba(217,70,239,0.6)] transition-all hover:-translate-y-1">
+                        <Link to="/register" className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-xl font-bold text-lg shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.6)] transition-all hover:-translate-y-1">
                             Get Started Now
                         </Link>
                         <a href="https://github.com/bhashkar017/Freelance-Time-Tracker" target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-3 px-10 py-5 bg-dark-surface border border-dark-border text-white rounded-xl font-bold text-lg hover:border-slate-500 hover:bg-dark-surface/50 transition-all">

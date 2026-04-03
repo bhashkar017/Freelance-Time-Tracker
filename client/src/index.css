@@ -7,9 +7,9 @@
 @layer base {
   :root {
     /* Modern Premium Light Palette */
-    --primary-color: #4f46e5;      /* Indigo 600 */
-    --primary-hover: #4338ca;      /* Indigo 700 */
-    --secondary-color: #d946ef;    /* Fuchsia 500 */
+    --primary-color: #06b6d4;      /* Electric Cyan */
+    --primary-hover: #0891b2;      /* Cyan 700 */
+    --secondary-color: #10b981;    /* Tech Emerald */
     
     --bg-color: #f8fafc;           /* Slate 50 */
     --bg-card: #ffffff;            /* Pure White */
@@ -23,14 +23,14 @@
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     --shadow-lg: 0 20px 40px -5px rgba(15, 23, 42, 0.08);
-    --shadow-glow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+    --shadow-glow: 0 10px 25px -5px rgba(6, 182, 212, 0.4);
     
     --hover-transform: translateY(-4px);
 
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #d946ef 100%);
-    --gradient-text: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
-    --gradient-bg: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    /* Solid "AI" Look - No Gradients */
+    --gradient-primary: #06b6d4;
+    --gradient-text: #06b6d4;
+    --gradient-bg: #f8fafc;
   }
 
   .dark {
@@ -39,10 +39,10 @@
     --text-main: #ffffff;
     --text-muted: #94a3b8;
     --border-color: #212134;
-    --gradient-bg: linear-gradient(180deg, #0b0b14 0%, #131320 100%);
+    --gradient-bg: #0b0b14;
   }
 
-  body {
+  html, body {
     background-color: var(--bg-color);
     color: var(--text-main);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
