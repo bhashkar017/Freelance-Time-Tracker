@@ -74,17 +74,25 @@ const getUserProfile = asyncHandler(async (req, res) => {
 const googleAuth = asyncHandler(async (req, res) => {
     const { token } = req.body; // this is the access_token
     
-    // Fetch profile from Google
+    // Fetch profile from Google using native https to avoid node version issues
     let googleUser;
     try {
-        const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-            headers: { Authorization: `Bearer ${token}` }
+        const https = require('https');
+        googleUser = await new Promise((resolve, reject) => {
+            https.get('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: `Bearer ${token}` }
+            }, (res) => {
+                let data = '';
+                res.on('data', chunk => data += chunk);
+                res.on('end', () => {
+                    if (res.statusCode >= 200 && res.statusCode < 300) {
+                        resolve(JSON.parse(data));
+                    } else {
+                        reject(new Error('Google token invalid'));
+                    }
+                });
+            }).on('error', reject);
         });
-        googleUser = await response.json();
-        
-        if (!response.ok) {
-            throw new Error('Google token invalid');
-        }
     } catch (error) {
         res.status(401);
         throw new Error('Invalid Google access token');
