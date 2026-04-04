@@ -116,52 +116,84 @@ const TimeTracker = () => {
                 </h3>
                 
                 <form onSubmit={onSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 items-end">
-                    <div className="space-y-2">
+                    <div className="space-y-2 group/input">
                         <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
                             <Calendar size={14} /> Date
                         </label>
-                        <input 
-                            type="date" name="date" value={formData.date} onChange={onChange} required 
-                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                        />
+                        <div className="relative">
+                            <input 
+                                type="date" name="date" value={formData.date} onChange={onChange} required 
+                                onClick={(e) => e.target.showPicker && e.target.showPicker()}
+                                className="w-full bg-dark-bg border border-dark-border rounded-xl text-white pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium appearance-none block"
+                            />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/70 group-hover/input:text-primary transition-colors">
+                                <Calendar size={18} />
+                            </div>
+                        </div>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-2 group/input">
                         <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
                             <Briefcase size={14} /> Project
                         </label>
-                        <select 
-                            name="project" value={formData.project} onChange={onChange} required
-                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
-                        >
-                            <option value="">Select Project</option>
-                            {projects.map(p => (
-                                <option key={p._id} value={p._id}>{p.name}</option>
-                            ))}
-                        </select>
+                        <div className="relative">
+                            <select 
+                                name="project" value={formData.project} onChange={onChange} required
+                                className="w-full bg-dark-bg border border-dark-border rounded-xl text-white pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium appearance-none block"
+                            >
+                                <option value="">Select Project</option>
+                                {projects.map(p => (
+                                    <option key={p._id} value={p._id}>{p.name}</option>
+                                ))}
+                            </select>
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/70 group-hover/input:text-primary transition-colors">
+                                <Plus size={18} className="rotate-45" />
+                            </div>
+                        </div>
                     </div>
-                    <div className="space-y-2 lg:col-span-1 xl:col-span-1">
+                    <div className="space-y-2 group/input">
                         <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
                             <MessageSquare size={14} /> Description
                         </label>
-                        <input 
-                            type="text" name="description" value={formData.description} onChange={onChange} 
-                            placeholder="What did you do?" required 
-                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                        />
+                        <div className="relative">
+                            <input 
+                                type="text" name="description" value={formData.description} onChange={onChange} 
+                                placeholder="What did you do?" required 
+                                className="w-full bg-dark-bg border border-dark-border rounded-xl text-white pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium block"
+                            />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/70 group-hover/input:text-primary transition-colors">
+                                <MessageSquare size={16} />
+                            </div>
+                        </div>
                     </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-400">Start Time</label>
-                        <input 
-                            type="time" name="startTime" value={formData.startTime} onChange={onChange} required 
-                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                        />
+                    <div className="space-y-2 group/input">
+                        <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
+                            <Clock size={14} /> Start Time
+                        </label>
+                        <div className="relative">
+                            <input 
+                                type="time" name="startTime" value={formData.startTime} onChange={onChange} required 
+                                onClick={(e) => e.target.showPicker && e.target.showPicker()}
+                                className="w-full bg-dark-bg border border-dark-border rounded-xl text-white pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium appearance-none block"
+                            />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/70 group-hover/input:text-primary transition-colors">
+                                <Clock size={18} />
+                            </div>
+                        </div>
                     </div>
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-400">End Time</label>
-                        <input 
-                            type="time" name="endTime" value={formData.endTime} onChange={onChange} required 
-                            className="w-full bg-dark-bg border border-dark-border rounded-xl text-white px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-                        />
+                    <div className="space-y-2 group/input">
+                        <label className="text-sm font-medium text-slate-400 flex items-center gap-2">
+                            <Clock size={14} /> End Time
+                        </label>
+                        <div className="relative">
+                            <input 
+                                type="time" name="endTime" value={formData.endTime} onChange={onChange} required 
+                                onClick={(e) => e.target.showPicker && e.target.showPicker()}
+                                className="w-full bg-dark-bg border border-dark-border rounded-xl text-white pl-4 pr-10 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all font-medium appearance-none block"
+                            />
+                            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/70 group-hover/input:text-primary transition-colors">
+                                <Clock size={18} />
+                            </div>
+                        </div>
                     </div>
 
                     <button 
