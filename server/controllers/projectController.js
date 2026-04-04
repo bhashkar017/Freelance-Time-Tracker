@@ -7,7 +7,8 @@ const asyncHandler = require('../utils/asyncHandler');
 exports.getProjects = asyncHandler(async (req, res) => {
     const projects = await Project.find({ user: req.user.id })
         .populate('client', 'name email')
-        .sort({ createdAt: -1 });
+        .sort({ createdAt: -1 })
+        .lean();
     res.json(projects);
 });
 

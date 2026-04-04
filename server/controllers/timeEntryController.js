@@ -11,7 +11,8 @@ exports.getTimeEntries = asyncHandler(async (req, res) => {
             path: 'project',
             populate: { path: 'client', select: 'name' }
         })
-        .sort({ startTime: -1, date: -1 });
+        .sort({ startTime: -1, date: -1 })
+        .lean();
     res.json(entries);
 });
 
@@ -44,7 +45,7 @@ exports.startTimeEntry = asyncHandler(async (req, res) => {
     const activeEntry = await TimeEntry.findOne({
         user: req.user.id,
         endTime: null
-    });
+    }).lean();
 
     if (activeEntry) {
         res.status(400);

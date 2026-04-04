@@ -13,6 +13,7 @@ const timeEntryRoutes = require('./routes/timeEntries');
 const reportRoutes = require('./routes/reportRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const rateLimit = require('express-rate-limit');
+const compression = require('compression');
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 
 // Trust the proxy (Render load balancer) to ensure express-rate-limit works correctly
 app.set('trust proxy', 1);

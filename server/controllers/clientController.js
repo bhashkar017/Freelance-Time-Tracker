@@ -5,7 +5,9 @@ const asyncHandler = require('../utils/asyncHandler');
 // @route   GET /api/clients
 // @access  Private
 exports.getClients = asyncHandler(async (req, res) => {
-    const clients = await Client.find({ user: req.user.id }).sort({ createdAt: -1 });
+    const clients = await Client.find({ user: req.user.id })
+        .sort({ createdAt: -1 })
+        .lean();
     res.json(clients);
 });
 
