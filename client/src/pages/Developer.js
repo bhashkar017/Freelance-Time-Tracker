@@ -21,17 +21,8 @@ const InstagramIcon = ({ className }) => (
     </svg>
 );
 
-const SocialLink = ({ href, icon: Icon, label, colorClass }) => (
-    <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`group flex items-center justify-center p-3 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/50 hover:bg-cyan-500/5 transition-all duration-300 shadow-lg hover:shadow-cyan-500/10 active:scale-95`}
-        title={label}
-    >
-        <Icon className={`w-6 h-6 ${colorClass} group-hover:scale-110 transition-transform duration-300`} />
-    </a>
-);
+
+
 
 const ContactItem = ({ icon: Icon, label, value, href }) => (
     <a 
