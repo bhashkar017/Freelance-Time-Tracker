@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import ConditionalFooter from './components/ConditionalFooter';
 import LoadingSpinner from './components/LoadingSpinner';
+import './index.css';
 
 // Pages - Lazy Loaded
 const LandingPage = lazy(() => import('./pages/LandingPage'));
@@ -23,8 +24,6 @@ const ProjectList = lazy(() => import('./pages/ProjectList'));
 const ProjectForm = lazy(() => import('./pages/ProjectForm'));
 const TimeTracker = lazy(() => import('./pages/TimeTracker'));
 const InvoiceView = lazy(() => import('./pages/InvoiceView'));
-
-import './index.css';
 
 function App() {
   return (
