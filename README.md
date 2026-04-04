@@ -80,4 +80,4 @@
 - [ ] **Forgot Password Recovery**: Secure email-based reset flow.
 
 ---
-*Developed for Excellence by [Your Name]*
+*Developed for Excellence by Bhashkar Anand*
