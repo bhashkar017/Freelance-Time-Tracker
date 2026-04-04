@@ -41,13 +41,13 @@ const Footer = () => {
                 <div style={{ textAlign: 'left' }}>
                     <h4 style={{ color: '#2c3e50', marginBottom: '20px' }}>Connect & Code</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" style={{ color: '#6c757d', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <a href="https://github.com/bhashkar017" target="_blank" rel="noopener noreferrer" style={{ color: '#6c757d', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <i className="fab fa-github"></i> GitHub Repo
                         </a>
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style={{ color: '#6c757d', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <a href="https://www.linkedin.com/in/bhashkar017/" target="_blank" rel="noopener noreferrer" style={{ color: '#6c757d', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <i className="fab fa-linkedin"></i> LinkedIn
                         </a>
-                        <a href="mailto:contact@freelancetracker.com" style={{ color: '#6c757d', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <a href="mailto:anandbhashkar2005@gmail.com" style={{ color: '#6c757d', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <i className="fas fa-envelope"></i> Contact Dev
                         </a>
                     </div>
