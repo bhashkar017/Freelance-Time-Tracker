@@ -11,6 +11,7 @@ const clientRoutes = require('./routes/clients');
 const projectRoutes = require('./routes/projects');
 const timeEntryRoutes = require('./routes/timeEntries');
 const reportRoutes = require('./routes/reportRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 const rateLimit = require('express-rate-limit');
 
 dotenv.config();
@@ -42,6 +43,7 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/time-entries', timeEntryRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get('/', (req, res) => {
     res.send('API is running...');

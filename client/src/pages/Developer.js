@@ -27,14 +27,15 @@ const InstagramIcon = ({ className }) => (
 const ContactItem = ({ icon: Icon, label, value, href }) => (
     <a 
         href={href}
-        className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300 group w-full"
+        className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all duration-300 group w-full min-w-0"
+        title={value}
     >
-        <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
+        <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform flex-shrink-0">
             <Icon className="w-5 h-5" />
         </div>
-        <div className="flex flex-col text-left">
+        <div className="flex flex-col text-left min-w-0 overflow-hidden">
             <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-0.5">{label}</span>
-            <span className="text-sm text-slate-200 font-medium group-hover:text-white transition-colors">{value}</span>
+            <span className="text-sm text-slate-200 font-medium group-hover:text-white transition-colors truncate">{value}</span>
         </div>
     </a>
 );
