@@ -4,7 +4,7 @@ import api from '../api/axios';
 import AuthContext from '../context/AuthContext';
 import { exhibitionStats } from '../utils/exhibitionData';
 import { motion } from 'framer-motion';
-import { DollarSign, Clock, LayoutGrid, Users, Briefcase, FileText, ArrowRight, PlayCircle, Sparkles } from 'lucide-react';
+import { DollarSign, Clock, LayoutGrid, Users, Briefcase, FileText, ArrowRight, PlayCircle } from 'lucide-react';
 import AISmartInsights from '../components/AISmartInsights';
 
 const Dashboard = () => {

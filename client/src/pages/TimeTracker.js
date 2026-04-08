@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import api from '../api/axios';
 import { format } from 'date-fns';
 import AuthContext from '../context/AuthContext';
@@ -27,7 +27,7 @@ const TimeTracker = () => {
         date: new Date().toISOString().split('T')[0]
     });
 
-    const fetchEntries = async () => {
+    const fetchEntries = useCallback(async () => {
         if (user?.isGuest) {
             setEntries(exhibitionActivities);
             return;
@@ -38,7 +38,7 @@ const TimeTracker = () => {
         } catch (err) {
             console.error(err);
         }
-    };
+    }, [user]);
 
     useEffect(() => {
         const fetchProjects = async () => {
@@ -54,7 +54,7 @@ const TimeTracker = () => {
         };
         fetchProjects();
         fetchEntries();
-    }, [user]);
+    }, [user, fetchEntries]);
 
     const [loading, setLoading] = useState(false);
 

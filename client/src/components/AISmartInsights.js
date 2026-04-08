@@ -6,7 +6,6 @@ const AISmartInsights = ({ stats }) => {
     // Heuristic calculations based on stats
     const productivityScore = stats?.time?.totalHours ? Math.min(Math.round((stats.time.totalHours / 20) * 100), 100) : 0;
     const peakWindow = "10:00 AM - 1:00 PM"; // Heuristic: Common peak time
-    const projectEfficiency = stats?.projects?.active > 0 ? "High" : "N/A";
     const burnoutRisk = (stats?.time?.totalHours > 40) ? "High" : (stats?.time?.totalHours > 30 ? "Medium" : "Low");
     
     // Dynamic messages based on stats

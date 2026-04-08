@@ -6,9 +6,8 @@ import { OrbitControls, Float, Sparkles, PerspectiveCamera } from '@react-three/
 import AuthContext from '../context/AuthContext';
 import FeatureCarousel from '../components/FeatureCarousel';
 import { 
-    Clock, BarChart3, Shield, Layout, Server, Database,
-    CheckCircle2, ArrowRight, Zap, Target, Lock,
-    Code2, Terminal, Cpu, Sparkle, Brain, TrendingUp
+    CheckCircle2, ArrowRight, Zap,
+    Lock, Code2, Terminal, Cpu, Sparkle, Brain, TrendingUp
 } from 'lucide-react';
 
 const fadeIn = {
