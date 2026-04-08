@@ -7,7 +7,8 @@ import AuthContext from '../context/AuthContext';
 import FeatureCarousel from '../components/FeatureCarousel';
 import { 
     CheckCircle2, ArrowRight, Zap,
-    Lock, Code2, Terminal, Cpu, Sparkle, Brain, TrendingUp
+    Lock, Code2, Terminal, Cpu, Sparkle, Brain, TrendingUp,
+    Server, Database
 } from 'lucide-react';
 
 const fadeIn = {
