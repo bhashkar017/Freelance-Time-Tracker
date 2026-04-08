@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
+import { exhibitionClients } from '../utils/exhibitionData';
 import {
     Plus,
     Trash2,
@@ -17,10 +19,16 @@ const ClientList = () => {
     const [clients, setClients] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const { user } = useContext(AuthContext);
     const { showAlert, showConfirm } = useModal();
 
     useEffect(() => {
         const fetchClients = async () => {
+            if (user?.isGuest) {
+                setClients(exhibitionClients);
+                setLoading(false);
+                return;
+            }
             try {
                 const res = await api.get('/api/clients');
                 setClients(res.data);
@@ -31,13 +39,17 @@ const ClientList = () => {
             }
         };
         fetchClients();
-    }, []);
+    }, [user]);
 
     const deleteClient = async (id) => {
         showConfirm(
             'Delete Client?',
             'Are you sure you want to delete this client? This action will permanently remove all associated data.',
             async () => {
+                if (user?.isGuest) {
+                    setClients(clients.filter(client => client._id !== id));
+                    return;
+                }
                 try {
                     await api.delete(`/api/clients/${id}`);
                     setClients(clients.filter(client => client._id !== id));

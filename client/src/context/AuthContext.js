@@ -35,6 +35,18 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
+    const loginAsGuest = () => {
+        const guestUser = {
+            _id: 'guest_123',
+            name: 'Expo Judge',
+            email: 'judge@lpu.edu',
+            isGuest: true,
+            token: 'mock_token'
+        };
+        setUser(guestUser);
+        return guestUser;
+    };
+
     const googleLogin = async (tokenId) => {
         const { data } = await api.post('/api/users/google', { token: tokenId });
         localStorage.setItem('userInfo', JSON.stringify(data));
@@ -43,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, register, logout, googleLogin, loading }}>
+        <AuthContext.Provider value={{ user, login, register, logout, googleLogin, loginAsGuest, loading }}>
             {children}
         </AuthContext.Provider>
     );

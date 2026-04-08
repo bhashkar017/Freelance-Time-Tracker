@@ -2,8 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import AuthContext from '../context/AuthContext';
+import { exhibitionStats } from '../utils/exhibitionData';
 import { motion } from 'framer-motion';
-import { DollarSign, Clock, LayoutGrid, Users, Briefcase, FileText, ArrowRight, PlayCircle } from 'lucide-react';
+import { DollarSign, Clock, LayoutGrid, Users, Briefcase, FileText, ArrowRight, PlayCircle, Sparkles } from 'lucide-react';
+import AISmartInsights from '../components/AISmartInsights';
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
@@ -12,6 +14,11 @@ const Dashboard = () => {
 
     useEffect(() => {
         const fetchStats = async () => {
+            if (user?.isGuest) {
+                setStats(exhibitionStats);
+                setLoading(false);
+                return;
+            }
             try {
                 const { data } = await api.get('/api/reports/dashboard');
                 setStats(data);
@@ -23,7 +30,7 @@ const Dashboard = () => {
         };
 
         fetchStats();
-    }, []);
+    }, [user]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -112,6 +119,16 @@ const Dashboard = () => {
                             {stats?.projects?.active || '0'} <span className="text-xl text-slate-500">/ {stats?.projects?.total || '0'}</span>
                         </p>
                     </motion.div>
+                </motion.div>
+
+                {/* AI Smart Insights Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                    className="mb-12"
+                >
+                    <AISmartInsights stats={stats} />
                 </motion.div>
 
                 <motion.div 

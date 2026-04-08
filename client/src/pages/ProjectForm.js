@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import api from '../api/axios';
 import { useModal } from '../context/ModalContext';
 import { Briefcase, User, DollarSign, Activity, Save, X } from 'lucide-react';
@@ -13,22 +14,38 @@ const ProjectForm = () => {
     });
     const [clients, setClients] = useState([]);
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const { showAlert } = useModal();
 
     const { name, client, hourlyRate, status } = formData;
 
     useEffect(() => {
         const fetchClients = async () => {
+            if (user?.isGuest) {
+                // Return some mock clients to allow project creation in demo
+                setClients([
+                    { _id: 'mock1', name: 'Acme Corp (Demo)' },
+                    { _id: 'mock2', name: 'Global Tech (Demo)' }
+                ]);
+                return;
+            }
             const res = await api.get('/api/clients');
             setClients(res.data);
         };
         fetchClients();
-    }, []);
+    }, [user]);
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async e => {
         e.preventDefault();
+        
+        if (user?.isGuest) {
+            showAlert('Demo Mode: Success', 'New project "created" in demo environment. Note: Changes are not saved to the cloud in demo mode.');
+            navigate('/projects');
+            return;
+        }
+
         try {
             await api.post('/api/projects', formData);
             navigate('/projects');

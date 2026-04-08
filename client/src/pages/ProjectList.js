@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
+import { exhibitionProjects } from '../utils/exhibitionData';
 import api from '../api/axios';
 import { useModal } from '../context/ModalContext';
 import { 
@@ -13,10 +15,15 @@ import {
 
 const ProjectList = () => {
     const [projects, setProjects] = useState([]);
+    const { user } = useContext(AuthContext);
     const { showAlert, showConfirm } = useModal();
 
     useEffect(() => {
         const fetchProjects = async () => {
+            if (user?.isGuest) {
+                setProjects(exhibitionProjects);
+                return;
+            }
             try {
                 const res = await api.get('/api/projects');
                 setProjects(res.data);
@@ -25,13 +32,17 @@ const ProjectList = () => {
             }
         };
         fetchProjects();
-    }, []);
+    }, [user]);
 
     const deleteProject = async (id) => {
         showConfirm(
             'Delete Project?',
             'Are you sure you want to delete this project? This will remove all associated time entries.',
             async () => {
+                if (user?.isGuest) {
+                    setProjects(projects.filter(project => project._id !== id));
+                    return;
+                }
                 try {
                     await api.delete(`/api/projects/${id}`);
                     setProjects(projects.filter(project => project._id !== id));

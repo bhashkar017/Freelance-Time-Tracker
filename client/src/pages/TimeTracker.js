@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import api from '../api/axios';
 import { format } from 'date-fns';
+import AuthContext from '../context/AuthContext';
+import { exhibitionActivities } from '../utils/exhibitionData';
 import { useModal } from '../context/ModalContext';
 import { 
     Clock, 
@@ -13,6 +15,7 @@ import {
 } from 'lucide-react';
 
 const TimeTracker = () => {
+    const { user } = useContext(AuthContext);
     const { showAlert, showConfirm } = useModal();
     const [projects, setProjects] = useState([]);
     const [entries, setEntries] = useState([]);
@@ -25,6 +28,10 @@ const TimeTracker = () => {
     });
 
     const fetchEntries = async () => {
+        if (user?.isGuest) {
+            setEntries(exhibitionActivities);
+            return;
+        }
         try {
             const res = await api.get('/api/time-entries');
             setEntries(res.data);
@@ -35,12 +42,19 @@ const TimeTracker = () => {
 
     useEffect(() => {
         const fetchProjects = async () => {
+            if (user?.isGuest) {
+                setProjects([
+                    { _id: 'p1', name: 'Quantum UI Redesign' },
+                    { _id: 'p2', name: 'Neural API Integration' }
+                ]);
+                return;
+            }
             const res = await api.get('/api/projects');
             setProjects(res.data);
         };
         fetchProjects();
         fetchEntries();
-    }, []);
+    }, [user]);
 
     const [loading, setLoading] = useState(false);
 
@@ -48,6 +62,22 @@ const TimeTracker = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
+        
+        if (user?.isGuest) {
+            showAlert('Demo Mode: Success', 'Time entry logged in demo environment. Note: Stats will reflect changes locally.');
+            // Add a temporary local entry for a "live" feel
+            const newEntry = {
+                _id: Date.now().toString(),
+                project: projects.find(p => p._id === formData.project) || { name: 'Demo Project' },
+                description: formData.description,
+                duration: 2.0, // Mock duration
+                date: new Date(formData.date).toISOString()
+            };
+            setEntries([newEntry, ...entries]);
+            setFormData({ ...formData, description: '', startTime: '', endTime: '' });
+            return;
+        }
+
         // Calculate duration if needed
         let duration = 0;
         if (formData.startTime && formData.endTime) {
@@ -85,6 +115,10 @@ const TimeTracker = () => {
             'Delete Entry?',
             'Are you sure you want to delete this time entry? This cannot be undone.',
             async () => {
+                if (user?.isGuest) {
+                    setEntries(entries.filter(entry => entry._id !== id));
+                    return;
+                }
                 try {
                     await api.delete(`/api/time-entries/${id}`);
                     setEntries(entries.filter(entry => entry._id !== id));

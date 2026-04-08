@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import api from '../api/axios';
 import { useModal } from '../context/ModalContext';
 import { User, Mail, MapPin, DollarSign, Save, X } from 'lucide-react';
@@ -14,6 +15,7 @@ const ClientForm = () => {
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const { showAlert } = useModal();
 
     const { name, email, address, defaultRate } = formData;
@@ -22,6 +24,13 @@ const ClientForm = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
+        
+        if (user?.isGuest) {
+            showAlert('Demo Mode: Success', 'New client "created" in demo environment. Note: Changes are not saved to the cloud in demo mode.');
+            navigate('/clients');
+            return;
+        }
+
         setLoading(true);
         try {
             await api.post('/api/clients', formData);

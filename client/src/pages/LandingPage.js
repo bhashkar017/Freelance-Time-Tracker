@@ -1,12 +1,14 @@
-import React, { Suspense } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Suspense, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Float, Sparkles, PerspectiveCamera } from '@react-three/drei';
+import AuthContext from '../context/AuthContext';
+import FeatureCarousel from '../components/FeatureCarousel';
 import { 
     Clock, BarChart3, Shield, Layout, Server, Database,
     CheckCircle2, ArrowRight, Zap, Target, Lock,
-    Code2, Terminal, Cpu
+    Code2, Terminal, Cpu, Sparkle, Brain, TrendingUp
 } from 'lucide-react';
 
 const fadeIn = {
@@ -42,7 +44,16 @@ const FloatingAbstract = () => {
     );
 };
 
+
 const LandingPage = () => {
+    const { loginAsGuest } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleExhibitionClick = () => {
+        loginAsGuest();
+        navigate('/dashboard');
+    };
+
     return (
         <div className="bg-dark-bg text-white overflow-hidden font-sans min-h-screen">
             
@@ -60,7 +71,7 @@ const LandingPage = () => {
                     >
                         <motion.div variants={fadeIn} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-surface border border-dark-border mb-8 shadow-glow-primary">
                             <span className="flex h-2 w-2 rounded-full bg-secondary animate-pulse"></span>
-                            <span className="text-sm font-semibold text-slate-300 tracking-wider">MERN 3.0 ARCHITECTURE</span>
+                            <span className="text-sm font-semibold text-slate-300 uppercase tracking-[0.2em]">Freelance Ecosystem 3.0</span>
                         </motion.div>
                         
                         <motion.h1 variants={fadeIn} className="text-6xl lg:text-8xl font-display font-black leading-[1.05] tracking-tight mb-8">
@@ -71,7 +82,7 @@ const LandingPage = () => {
                         </motion.h1>
                         
                         <motion.p variants={fadeIn} className="text-xl text-slate-400 mb-10 leading-relaxed max-w-xl font-light">
-                            The enterprise-grade platform for modern developers. Track hours effortlessly, generate dynamic reports, and scale your revenue with bank-level security.
+                            Experience a premium, high-performance MERN application designed for the modern freelancer. Featuring bank-level security and intelligent time management.
                         </motion.p>
                         
                         <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-5">
@@ -79,9 +90,13 @@ const LandingPage = () => {
                                 Start Building Free
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link to="/login" className="inline-flex items-center justify-center px-8 py-4 bg-dark-surface/50 backdrop-blur-md text-white border border-dark-border rounded-xl font-bold text-lg hover:border-slate-500 transition-all duration-300">
-                                Sign In
-                            </Link>
+                            <button 
+                                onClick={handleExhibitionClick}
+                                className="inline-flex items-center justify-center px-8 py-4 bg-dark-surface/50 backdrop-blur-md text-white border border-dark-border rounded-xl font-bold text-lg hover:border-slate-500 transition-all duration-300 group"
+                            >
+                                <Sparkle className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform text-primary" />
+                                Try Interactive Demo
+                            </button>
                         </motion.div>
                         
                         <motion.div variants={fadeIn} className="mt-12 flex flex-wrap items-center gap-8 text-sm text-slate-400 font-medium">
@@ -118,83 +133,147 @@ const LandingPage = () => {
                 </div>
             </section>
 
-            {/* PLATFORM FEATURES */}
-            <section className="py-32 relative z-10 border-t border-dark-border bg-dark-surface/30">
-                <div className="max-w-7xl mx-auto px-6">
+            {/* AI STRATEGY ENGINE HIGHLIGHT */}
+            <section className="py-32 relative overflow-hidden bg-dark-bg z-10 border-t border-dark-border">
+                {/* Background AI Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] opacity-50 pointer-events-none"></div>
+                
+                <div className="max-w-7xl mx-auto px-6 relative">
                     <div className="text-center mb-20">
-                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-4">Core Platform</h2>
-                        <h3 className="text-4xl md:text-5xl font-display font-bold text-white">Engineered for performance</h3>
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+                        >
+                            <Brain size={16} className="text-primary animate-pulse" />
+                            <span className="text-sm font-bold text-primary tracking-widest uppercase">Intelligent Systems</span>
+                        </motion.div>
+                        <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-6">Driven by the Strategy Engine</h3>
+                        <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                            Go beyond simple tracking. Our built-in intelligence analyzes your work patterns to optimize your freelance growth and prevent burnout.
+                        </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {[
-                            { icon: Clock, color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', title: 'Smart Time Tracking', desc: 'Frictionless stopwatch interface. Assign hours directly to specific clients and projects.' },
-                            { icon: BarChart3, color: 'text-fuchsia-400', bg: 'bg-fuchsia-500/10', border: 'border-fuchsia-500/20', title: 'Earnings Analytics', desc: 'Real-time calculation of your billable rates mapped against tracked time. Beautiful charts.' },
-                            { icon: Shield, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', title: 'Data Security', desc: 'JWT sessions and Bcrypt hashed credentials ensure your business data is absolutely secure.' },
-                            { icon: Layout, color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', title: 'Client Management', desc: 'Maintain an organized database of clients and associated projects within a unified dashboard.' },
-                            { icon: Zap, color: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/20', title: 'Lightning Fast', desc: 'Built on a modern React 19 architecture. Page transitions and updates happen in milliseconds.' },
-                            { icon: Target, color: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/20', title: 'Goal Tracking', desc: 'Set and monitor your monthly freelance revenue targets against your actual tracked billables.' }
-                        ].map((feature, i) => (
-                            <motion.div 
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1, duration: 0.5 }}
-                                className={`bg-dark-bg/60 backdrop-blur-sm p-8 rounded-3xl border ${feature.border} hover:bg-dark-surface transition-all group`}
-                            >
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${feature.bg} ${feature.color} group-hover:scale-110 transition-transform duration-300`}>
-                                    <feature.icon className="w-7 h-7" />
-                                </div>
-                                <h4 className="text-xl font-bold mb-3 font-display text-slate-100">{feature.title}</h4>
-                                <p className="text-slate-400 leading-relaxed text-sm">{feature.desc}</p>
-                            </motion.div>
-                        ))}
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        <motion.div 
+                            whileHover={{ y: -10 }}
+                            className="bg-dark-surface/40 backdrop-blur-xl border border-primary/20 p-10 rounded-[32px] relative group overflow-hidden"
+                        >
+                            <div className="absolute -right-4 -top-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors"></div>
+                            <Zap className="w-12 h-12 text-primary mb-8" />
+                            <h4 className="text-2xl font-bold text-white mb-4">Peak Flow Analysis</h4>
+                            <p className="text-slate-400 leading-relaxed mb-6">Identify your most productive "Deep Work" hours based on historical consistency and output quality.</p>
+                            <div className="text-primary font-bold text-sm tracking-tighter uppercase">+22% Efficiency Gain</div>
+                        </motion.div>
+
+                        <motion.div 
+                            whileHover={{ y: -10 }}
+                            className="bg-dark-surface/40 backdrop-blur-xl border border-emerald-500/20 p-10 rounded-[32px] relative group overflow-hidden"
+                        >
+                            <div className="absolute -right-4 -top-4 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-colors"></div>
+                            <TrendingUp className="w-12 h-12 text-emerald-400 mb-8" />
+                            <h4 className="text-2xl font-bold text-white mb-4">Revenue Forecasting</h4>
+                            <p className="text-slate-400 leading-relaxed mb-6">Predict monthly earnings using algorithmic linear projections mapped against your active pipeline.</p>
+                            <div className="text-emerald-400 font-bold text-sm tracking-tighter uppercase">Predictive Analysis</div>
+                        </motion.div>
+
+                        <motion.div 
+                            whileHover={{ y: -10 }}
+                            className="bg-dark-surface/40 backdrop-blur-xl border border-rose-500/20 p-10 rounded-[32px] relative group overflow-hidden"
+                        >
+                            <div className="absolute -right-4 -top-4 w-32 h-32 bg-rose-500/10 rounded-full blur-3xl group-hover:bg-rose-500/20 transition-colors"></div>
+                            <CheckCircle2 className="w-12 h-12 text-rose-400 mb-8" />
+                            <h4 className="text-2xl font-bold text-white mb-4">Burnout Prevention</h4>
+                            <p className="text-slate-400 leading-relaxed mb-6">Proactive monitoring of cognitive fatigue by tracking intensity and mandatory rest window analysis.</p>
+                            <div className="text-rose-400 font-bold text-sm tracking-tighter uppercase">Smart Safety Shield</div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* PLATFORM VISUALS */}
+            {/* PLATFORM VISUALS (STATIC SECTION) */}
             <section className="py-24 relative overflow-hidden bg-dark-bg z-10 border-t border-dark-border">
                 <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-24">
+                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-4">Core Functionality</h2>
+                        <h3 className="text-4xl md:text-5xl font-display font-bold text-white">The standard in freelance management.</h3>
+                    </div>
+
                     {/* Time Tracking mockup */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-32 group">
                         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
                             <h3 className="text-3xl font-display font-bold mb-4">Precision Time Tracking</h3>
-                            <p className="text-slate-400 leading-relaxed text-lg mb-6">Stop guessing your billable hours. Our tracker runs seamlessly in the background, logging your coding sessions per-project with zero-friction start and stop mechanisms.</p>
+                            <p className="text-slate-400 leading-relaxed text-lg mb-6 font-light">Stop guessing your billable hours. Our tracker runs seamlessly in the background, logging your sessions per-project with zero-friction.</p>
                             <ul className="space-y-3 mb-8">
-                                <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="w-5 h-5 text-emerald-400" /> Granular project assignment</li>
-                                <li className="flex items-center gap-3 text-slate-300"><CheckCircle2 className="w-5 h-5 text-emerald-400" /> Manual time-entry overrides</li>
+                                <li className="flex items-center gap-3 text-slate-300 font-medium"><CheckCircle2 className="w-5 h-5 text-emerald-400" /> Granular project assignment</li>
+                                <li className="flex items-center gap-3 text-slate-300 font-medium"><CheckCircle2 className="w-5 h-5 text-emerald-400" /> One-click billing export</li>
                             </ul>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
-                            <div className="absolute inset-0 bg-blue-500/20 blur-[100px] -z-10 rounded-full"></div>
-                            <img src="/images/dashboard-mockup.png" alt="Time Tracking Dashboard" className="rounded-2xl border border-dark-border shadow-2xl w-full" />
+                            <div className="absolute inset-0 bg-blue-500/10 blur-[80px] -z-10 rounded-full group-hover:bg-blue-500/20 transition-all duration-700"></div>
+                            <img src="/images/dashboard-mockup.png" alt="Time Tracking Dashboard" className="rounded-3xl border border-white/5 shadow-3xl w-full" />
                         </motion.div>
                     </div>
 
                     {/* Analytics mockup */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center mb-32 group">
                         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="order-2 lg:order-1 relative">
-                            <div className="absolute inset-0 bg-fuchsia-500/20 blur-[100px] -z-10 rounded-full"></div>
-                            <img src="/images/analytics-mockup.png" alt="Analytics Charts" className="rounded-2xl border border-dark-border shadow-2xl w-full" />
+                            <div className="absolute inset-0 bg-fuchsia-500/10 blur-[80px] -z-10 rounded-full group-hover:bg-fuchsia-500/20 transition-all duration-700"></div>
+                            <img src="/images/analytics-mockup.png" alt="Analytics Charts" className="rounded-3xl border border-white/5 shadow-3xl w-full" />
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="order-1 lg:order-2">
                             <h3 className="text-3xl font-display font-bold mb-4">Dynamic Revenue Analytics</h3>
-                            <p className="text-slate-400 leading-relaxed text-lg mb-6">Visualize your freelance growth instantly. Our analytics engine maps tracked time directly to your billable rates, giving you crystal clear insights into your highest-paying clients.</p>
+                            <p className="text-slate-400 leading-relaxed text-lg mb-6 font-light">Visualize your growth instantly. Our analytics engine maps tracked time directly to your billable rates for crystal clear financial insights.</p>
                         </motion.div>
                     </div>
 
                     {/* Client Management mockup */}
-                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center group">
                         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                            <h3 className="text-3xl font-display font-bold mb-4">Seamless Client Management</h3>
-                            <p className="text-slate-400 leading-relaxed text-lg mb-6">Keep your business organized. A centralized hub for all your client contracts, outstanding projects, and overall profitability. Beautifully tracked.</p>
+                            <h3 className="text-3xl font-display font-bold mb-4">Seamless Client Hub</h3>
+                            <p className="text-slate-400 leading-relaxed text-lg mb-6 font-light">Keep your business organized. A centralized hub for all your client contracts, projects, and overall profitability.</p>
                         </motion.div>
                         <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
-                            <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] -z-10 rounded-full"></div>
-                            <img src="/images/client-mockup.png" alt="Client Management" className="rounded-2xl border border-dark-border shadow-2xl w-full" />
+                            <div className="absolute inset-0 bg-emerald-500/10 blur-[80px] -z-10 rounded-full group-hover:bg-emerald-500/20 transition-all duration-700"></div>
+                            <img src="/images/client-mockup.png" alt="Client Management" className="rounded-3xl border border-white/5 shadow-3xl w-full" />
                         </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* INNOVATION SHOWCASE (ANIMATED CAROUSEL) */}
+            <section className="py-32 relative overflow-hidden bg-dark-surface/10 z-10 border-t border-dark-border">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="text-center mb-16">
+                        <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+                        >
+                            <Sparkle size={16} className="text-primary" />
+                            <span className="text-sm font-bold text-primary tracking-widest uppercase">Innovation Gallery</span>
+                        </motion.div>
+                        <motion.h3 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-4xl md:text-7xl font-display font-black text-white"
+                        >
+                            Visionary <span className="text-primary tracking-tighter italic">Engineering</span>
+                        </motion.h3>
+                        <motion.p 
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="text-slate-400 text-xl mt-4 max-w-2xl mx-auto font-light"
+                        >
+                            Take a deep dive into the high-performance architectural pillars that power our intelligent systems.
+                        </motion.p>
+                    </div>
+
+                    <div className="relative">
+                        <FeatureCarousel />
                     </div>
                 </div>
             </section>
@@ -257,39 +336,11 @@ const LandingPage = () => {
                                         {'}'});<br/><br/>
                                         <span className="text-slate-500">{"// Database Connection"}</span><br/>
                                         <span className="text-fuchsia-400">await</span> mongoose.<span className="text-blue-400">connect</span>(process.env.<span className="text-amber-300">MONGO_URI</span>);<br/>
-                                        console.<span className="text-emerald-300">log</span>(<span className="text-amber-300">'MongoDB connected to cluster'</span>);
+                                        console.<span className="text-emerald-300">log</span>(<span className="text-amber-300">'MongoDB connected'</span>);
                                     </code>
                                 </pre>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* DEPLOYMENT */}
-            <section className="py-24 bg-dark-bg relative z-10 border-t border-dark-border">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16">
-                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase mb-3">Deployment</h2>
-                        <h3 className="text-3xl font-display font-bold">Cloud Infrastructure</h3>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-6">
-                        {[
-                            { title: 'MongoDB Atlas', desc: 'Global cloud database clustering.', icon: Database },
-                            { title: 'Vercel Edge', desc: 'Global CDN for React frontend.', icon: Zap },
-                            { title: 'Render', desc: 'Containerized Node.js API.', icon: Server }
-                        ].map((item, i) => (
-                            <div key={i} className="bg-dark-bg border border-dark-border p-6 rounded-2xl flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-dark-surface flex items-center justify-center text-primary">
-                                    <item.icon size={24} />
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-white mb-1">{item.title}</h4>
-                                    <p className="text-xs text-slate-400">{item.desc}</p>
-                                </div>
-                            </div>
-                        ))}
                     </div>
                 </div>
             </section>
@@ -303,7 +354,7 @@ const LandingPage = () => {
                     </h2>
                     <p className="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto">Stop guessing your hourly rate. Start measuring your success precisely and growing your revenue.</p>
                     
-                    <div className="flex flex-col sm:flex-row justify-center gap-6">
+                    <div className="flex flex-center justify-center gap-6">
                         <Link to="/register" className="inline-flex items-center justify-center px-10 py-5 bg-primary text-white rounded-xl font-bold text-lg shadow-[0_0_30px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.6)] transition-all hover:-translate-y-1">
                             Get Started Now
                         </Link>
